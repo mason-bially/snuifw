@@ -34,7 +34,12 @@ cc_binary(
     deps = [
         "@glfw//:glfw",
         ":glad_gl3"
-    ]
+    ],
+
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std=c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
 )
 
 cc_binary(
@@ -44,4 +49,9 @@ cc_binary(
         "@glfw//:glfw",
         "@skia//:skia"
     ],
+
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std=c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
 )
