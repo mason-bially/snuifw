@@ -10,7 +10,8 @@
 
                 "${workspaceFolder}/bazel-snuifw/external/fmt/include",
                 "${workspaceFolder}/bazel-snuifw/external/spdlog/include",
-                "${workspaceFolder}/bazel-snuifw/external/glfw/include"
+                "${workspaceFolder}/bazel-snuifw/external/glfw/include",
+                "${workspaceFolder}/bazel-snuifw/external/skia"
             ],
             "defines": [
                 "_DEBUG",

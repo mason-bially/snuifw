@@ -29,10 +29,19 @@ cc_library(
 
 
 cc_binary(
-    name = "example",
-    srcs = ["test/example.cpp"],
+    name = "example_glfw",
+    srcs = ["test/example_glfw.cpp"],
     deps = [
         "@glfw//:glfw",
         ":glad_gl3"
     ]
+)
+
+cc_binary(
+    name = "example_skia",
+    srcs = ["test/example_skia.cpp"],
+    deps = [
+        "@glfw//:glfw",
+        "@skia//:skia"
+    ],
 )
