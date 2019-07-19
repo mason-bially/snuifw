@@ -16,6 +16,7 @@ cc_library(
         "vendor/glad_gl4"
     ]
 )
+
 cc_library(
     name = "glad_gles3",
     visibility = ["//visibility:public"],
@@ -47,7 +48,23 @@ cc_binary(
     srcs = ["test/example_skia.cpp"],
     deps = [
         "@glfw//:glfw",
-        "@skia//:skia"
+        "@skia//:skia",
+    ],
+
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std=c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
+)
+
+cc_binary(
+    name = "example_h3",
+    srcs = ["test/example_h3.cpp"],
+    deps = [
+        "@yoga//:yoga",
+        "@glfw//:glfw",
+        "@skia//:skia",
+        "@h3//:h3"
     ],
 
     copts = select({
