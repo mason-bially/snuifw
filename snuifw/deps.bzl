@@ -4,17 +4,17 @@ def snuifw_deps():
     if "glfw" not in native.existing_rules():
         http_archive(
             name = "glfw",
-            urls = ["https://github.com/mason-bially/glfw/archive/3ba1ccd78136ac76c21ca8ae1481b667617a05e3.zip"],
-            strip_prefix = "glfw-3ba1ccd78136ac76c21ca8ae1481b667617a05e3",
-            sha256 = "726f0dfa033a4aabd4ca14a9349053a8a97b8197a732cbcbfac5bf57a19ac859",
+            urls = ["https://github.com/mason-bially/glfw/archive/52e7f2221fbadeeab89f093e2d25e9f314a8c431.zip"],
+            strip_prefix = "glfw-52e7f2221fbadeeab89f093e2d25e9f314a8c431",
+            sha256 = "832936e750fc23beaba91106beb9949c1b294ebd386c9962cf6c5da7098c613c",
         )
 
     if "skia" not in native.existing_rules():
         http_archive(
             name = "skia",
-            urls = ["https://github.com/mason-bially/skia-dist/archive/3be66c7cf310b81000845f1887ddc8708743cbb5.zip"],
-            strip_prefix = "skia-dist-3be66c7cf310b81000845f1887ddc8708743cbb5",
-            sha256 = "e593565a4ae24dcca6a0b9bf67f1736c081bf21b824d85df2d919142bb552546",
+            urls = ["https://github.com/mason-bially/skia-dist/archive/500838b97713b3c1c50d0e9e86d39878e48b0fb3.zip"],
+            strip_prefix = "skia-dist-500838b97713b3c1c50d0e9e86d39878e48b0fb3",
+            sha256 = "cd1c4e6db93423f07395bc9228e4729a8fc610b887db2aa5c2bf9412533aa6f7",
         )
 
     if "yoga" not in native.existing_rules():
