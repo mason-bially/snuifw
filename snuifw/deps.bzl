@@ -24,10 +24,4 @@ def snuifw_deps():
             strip_prefix = "yoga-a722b55ee4270aefca787419062f1ffb4f566735",
             sha256 = "47bfbcd67de242ed0010e9e35c369adadac1b8e8b4f3d081ba432dc0e88471f7",
         )
-    if "h3" not in native.existing_rules():
-        http_archive(
-            name = "h3",
-            urls = ["https://github.com/cgrinker/h3/archive/99f6ed5e058db0b50614c2c7f204c468d99a9ab3.zip"],
-            strip_prefix = "h3-99f6ed5e058db0b50614c2c7f204c468d99a9ab3",
-            sha256 = "b953b53852abc698905074db51a8e76ed53bda8b34d233b687abcaebf1163361",
-        )
+        

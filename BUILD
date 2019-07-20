@@ -38,7 +38,7 @@ cc_binary(
     ],
 
     copts = select({
-        "@bazel_tools//src/conditions:windows": ["/std=c++17"],
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
         "//conditions:default": ["-std=c++17"],
     }),
 )
@@ -53,23 +53,39 @@ cc_binary(
     ],
 
     copts = select({
-        "@bazel_tools//src/conditions:windows": ["/std=c++17"],
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
+)
+
+cc_library(
+    name = "snuifw",
+    hdrs = glob(["src/**/*.h*"]),
+    srcs = glob(["src/**/*.c*"]),
+    includes = ["src"],
+    deps = [
+        "@lager//:lager",
+        "@yoga//:yoga",
+        "@glfw//:glfw",
+        "@skia//:skia",
+        #"@h3//:h3"
+    ],
+
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
         "//conditions:default": ["-std=c++17"],
     }),
 )
 
 cc_binary(
-    name = "example_h3",
-    srcs = ["test/example_h3.cpp"],
+    name = "example_dom",
+    srcs = glob(["test/example_dom.cpp"]),
     deps = [
-        "@yoga//:yoga",
-        "@glfw//:glfw",
-        "@skia//:skia",
-        "@h3//:h3"
+        ":snuifw",
     ],
 
     copts = select({
-        "@bazel_tools//src/conditions:windows": ["/std=c++17"],
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
         "//conditions:default": ["-std=c++17"],
     }),
 )

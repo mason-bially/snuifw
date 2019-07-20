@@ -7,10 +7,12 @@
 #include "include/core/SkColorSpace.h"
 #include "include/core/SkSurface.h"
 
-#include "h3api.h"
-
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "snuifw/snuifw.h"
+
+using namespace snuifw;
 
 //uncomment the two lines below to enable correct color spaces
 //#define GL_FRAMEBUFFER_SRGB 0x8DB9
@@ -64,17 +66,6 @@ void cleanup_skia() {
 const int kWidth = 960;
 const int kHeight = 640;
 
-
-float intToDegree(int i, int maxI) {
-    return ((float(i) / float(maxI)) * 360.f) - 180.f;
-}
-
-SkColor colorForIndex(H3Index index)
-{
-	auto i = h3GetBaseCell(index);
-    return SkColorSetRGB(i, i, i);
-}
-
 int main(void) {
 	GLFWwindow* window;
 	glfwSetErrorCallback(error_callback);
@@ -104,32 +95,23 @@ int main(void) {
 	glfwSwapInterval(1);
 	glfwSetKeyCallback(window, key_callback);
 
-	// Draw to the surface via its SkCanvas.
-	SkCanvas* canvas = sSurface->getCanvas(); // We don't manage this pointer's lifetime.
+    auto dom = new snuifw::DomContext(sSurface);
 
-	while (!glfwWindowShouldClose(window)) {
+    dom->setRoot(
+        VTile() [
+            VTile() [
+                Text().value("hey"),
+                Text().value("hey")
+            ],
+            Text().value("hey")
+        ]);
+
+	while (!glfwWindowShouldClose(window))
+    {
 		glfwWaitEvents();
 
-		SkPaint paint;
-		paint.setColor(SK_ColorWHITE);
-		canvas->drawPaint(paint);
-        SkPoint p;
-        
-        for(auto i = 0; i < kWidth; i++)
-        for(auto j = 0; j < kHeight; j++)
-        {
-            GeoCoord g;
-            g.lat = intToDegree(i, kWidth);
-            g.lon = intToDegree(j, kHeight);
-            auto index = geoToH3(&g, 0);
-			SkPaint point;
-            point.setColor(colorForIndex(index));
+		dom->render();
 
-            p.fX = float(i);
-            p.fY = float(j);
-            canvas->drawPoint(p, point);
-        }
-		sContext->flush();
 		glfwSwapBuffers(window);
 	}
 
