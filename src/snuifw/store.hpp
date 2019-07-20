@@ -1,42 +1,41 @@
-// //
-// // lager - library for functional interactive c++ programs
-// // Copyright (C) 2017 Juan Pedro Bolivar Puente
-// //
-// // This file is part of lager.
-// //
-// // lager is free software: you can redistribute it and/or modify
-// // it under the terms of the MIT License, as detailed in the LICENSE
-// // file located at the root of this source code distribution,
-// // or here: <https://github.com/arximboldi/lager/blob/master/LICENSE>
-// //
+#pragma once
 
-// #include "lager/util.hpp"
-// #include <variant>
+#include "lager/util.hpp"
+#include <variant>
 
-// namespace model {
+namespace model {
 
+struct Window {
+    int x = 0;
+    int y = 0;
+    int width = 960;
+    int height = 640;
 
-// struct model
-// {
-//     int zoom_value = 0;
-// };
+    std::string name = "Hello World";
+};
 
-// struct zoom_action
-// {
-//     int direction = 0;
-// };
+struct Model
+{
+    Window window;
+    int zoom_value = 0;
+};
 
-// using action = std::variant<zoom_action>;
+struct zoom_action
+{
+    int direction = 0;
+};
 
-// model update(model c, action action)
-// {
-//     return std::visit(
-//         lager::visitor{
-//             [&](zoom_action a) { return model{
-//                 std::min(15, std::max(0, a.direction));
-//             };},
-//         },
-//         action);
-// }
+using action = std::variant<zoom_action>;
 
-// } // namespace counter
+inline Model update(Model c, action action)
+{
+    return std::visit(
+        lager::visitor{
+            [&](zoom_action a) { return Model {
+                std::min(15, std::max(0, a.direction))
+            };},
+        },
+        action);
+}
+
+} // namespace counter

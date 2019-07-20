@@ -7,6 +7,7 @@
                 "${workspaceFolder}/test",
 
                 "${workspaceFolder}/vendor/glad_gl3",
+                "${workspaceFolder}/bazel-genfiles/external/lager",
                 "${workspaceFolder}/bazel-snuifw/external/lager",
                 "${workspaceFolder}/bazel-snuifw/external/fmt/include",
                 "${workspaceFolder}/bazel-snuifw/external/spdlog/include",
