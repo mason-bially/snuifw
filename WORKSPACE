@@ -20,8 +20,10 @@ http_archive(
             sha256 = "b953b53852abc698905074db51a8e76ed53bda8b34d233b687abcaebf1163361",
 )
         
-local_repository(
+http_archive(
     name = "lager",
-    path = "A:/Data/Clark/src/github.com/cgrinker/lager",
+    urls = ["https://github.com/cgrinker/lager/archive/628b534bf253d905c5db45bcc981ba4f4ef56442.zip"],
+    strip_prefix = "lager-628b534bf253d905c5db45bcc981ba4f4ef56442",
+    sha256 = "e8cde886b5a87a07c7027d2f12a1cfb387003f7edabf7e083768edd8f811f9f3"
 )
 snuifw_deps()
