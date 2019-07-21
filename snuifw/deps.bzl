@@ -20,8 +20,15 @@ def snuifw_deps():
     if "yoga" not in native.existing_rules():
         http_archive(
             name = "yoga",
-            urls = ["https://github.com/cgrinker/yoga/archive/a722b55ee4270aefca787419062f1ffb4f566735.zip"],
-            strip_prefix = "yoga-a722b55ee4270aefca787419062f1ffb4f566735",
-            sha256 = "47bfbcd67de242ed0010e9e35c369adadac1b8e8b4f3d081ba432dc0e88471f7",
+            urls = ["https://github.com/cgrinker/yoga/archive/5cd6256843499537f1ae65eaa92c7376be22e99e.zip"],
+            strip_prefix = "yoga-5cd6256843499537f1ae65eaa92c7376be22e99e",
+            #sha256 = "",
         )
-        
+
+    if "lager" not in native.existing_rules():
+        http_archive(
+            name = "lager",
+            urls = ["https://github.com/cgrinker/lager/archive/628b534bf253d905c5db45bcc981ba4f4ef56442.zip"],
+            strip_prefix = "lager-628b534bf253d905c5db45bcc981ba4f4ef56442",
+            sha256 = "e8cde886b5a87a07c7027d2f12a1cfb387003f7edabf7e083768edd8f811f9f3"
+        )

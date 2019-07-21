@@ -5,8 +5,8 @@ using namespace snuifw;
 void Context::init()
 {
     if (!glfwInit()) {
-			throw std::exception();
-		}
+		throw std::runtime_error("GLFW Problem Bro");
+	}
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);

@@ -91,7 +91,7 @@ namespace snuifw {
             float thisHeight = 0.f;
             SkPoint currentLayoutPoint = SkPoint();
 
-            for (int i = 0; i < children; ++i)
+            for (decltype(children) i = 0; i < children; ++i)
             {
                 SkRect current = SkRect::MakeXYWH(
                     currentLayoutPoint.fX, currentLayoutPoint.fY,

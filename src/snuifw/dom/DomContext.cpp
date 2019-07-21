@@ -34,7 +34,7 @@ void DomContext::_shadowRender(ShadowDom& shadow, std::shared_ptr<IElement> cons
     {
         auto size = children->size();
         shadow.shadowChildren.resize(size);
-        for (auto i = 0; i < size; ++i)
+        for (unsigned i = 0; i < size; ++i)
         {
             _shadowRender(shadow.shadowChildren.at(i), children->at(i));
         }

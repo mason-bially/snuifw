@@ -1,5 +1,5 @@
 cc_library(
-    name = "glad_gl3",
+    name = "gl3",
     visibility = ["//visibility:public"],
     hdrs = ["vendor/glad_gl3/glad/glad.h", "vendor/glad_gl3/KHR/khrplatform.h"],
     srcs = ["vendor/glad_gl3/glad.c"],
@@ -8,7 +8,7 @@ cc_library(
     ]
 )
 cc_library(
-    name = "glad_gl4",
+    name = "gl4",
     visibility = ["//visibility:public"],
     hdrs = ["vendor/glad_gl4/glad/glad.h", "vendor/glad_gl4/KHR/khrplatform.h"],
     srcs = ["vendor/glad_gl4/glad.c"],
@@ -18,7 +18,7 @@ cc_library(
 )
 
 cc_library(
-    name = "glad_gles3",
+    name = "gles3",
     visibility = ["//visibility:public"],
     hdrs = ["vendor/glad_gles3/glad/glad.h", "vendor/glad_gles3/KHR/khrplatform.h"],
     srcs = ["vendor/glad_gles3/glad.c"],
@@ -27,14 +27,12 @@ cc_library(
     ]
 )
 
-
-
 cc_binary(
     name = "example_glfw",
     srcs = ["test/example_glfw.cpp"],
     deps = [
         "@glfw//:glfw",
-        ":glad_gl3"
+        ":gl3"
     ],
 
     copts = select({
