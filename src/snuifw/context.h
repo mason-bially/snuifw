@@ -2,7 +2,7 @@
 #pragma once
 #include "common.h"
 
-#include "store.hpp"
+#include "store/store.hpp"
 
 namespace snuifw {
 
@@ -17,11 +17,12 @@ namespace snuifw {
         SkSurface* sSurface = nullptr;
     public:
         
-
-
         virtual void init();
         virtual void teardown();
-
         virtual bool is_running();
+    private:
+        void init_glfw();
+        void init_skia();
+        void fill_window_events();
     };
 }

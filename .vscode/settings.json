@@ -50,7 +50,8 @@
         "ratio": "cpp",
         "unordered_map": "cpp",
         "xhash": "cpp",
-        "deque": "cpp",
+        "deque": "cpp"
+        "optional": "cpp"
         "string_view": "cpp"
     }
 }

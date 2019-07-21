@@ -62,10 +62,12 @@ cc_library(
     srcs = glob(["src/**/*.c*"]),
     includes = ["src"],
     deps = [
+        "@immer//:immer",
         "@lager//:lager",
         #"@yoga//:yoga",
         "@glfw//:glfw",
         "@skia//:skia",
+        "@org_cultlang_stdext//:stdext"
         #"@h3//:h3"
     ],
 
@@ -79,6 +81,7 @@ cc_binary(
     name = "example_dom",
     srcs = glob(["test/example_dom.cpp"]),
     deps = [
+        "@immer//:immer",
         ":snuifw",
     ],
 

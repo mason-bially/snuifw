@@ -15,3 +15,6 @@
 #include "include/core/SkSurface.h"
 #include "include/core/SkRect.h"
 #include "include/core/SkFont.h"
+
+
+#include "stdext/bindmem.hpp"
