@@ -52,13 +52,13 @@ int main(void) {
             Box().color(SkColorSetARGB(255, 255, 0, 255)).size({ 100.f, 100.f })
         ]);
 
-	while (!glfwWindowShouldClose(c.window))
+	while (!glfwWindowShouldClose(c.window_weak_ref()))
     {
-		glfwWaitEvents();
+		c.wait_events();
 
 		dom->render();
 
-		glfwSwapBuffers(c.window);
+		glfwSwapBuffers(c.window_weak_ref());
 	}
 
 	exit(EXIT_SUCCESS);

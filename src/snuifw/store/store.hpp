@@ -3,7 +3,7 @@
 #include "lager/util.hpp"
 #include <variant>
 
-#include "window/store.h"
+#include "window/store.hpp"
 #include "key/store.h"
 
 namespace model {
