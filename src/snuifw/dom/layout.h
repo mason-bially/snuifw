@@ -77,8 +77,8 @@ namespace snuifw {
         {
             if constexpr (!IsVertical)
             {
-                std::swap(r.fLeft, p.fTop);
-                std::swap(r.fRight, p.fBottom);
+                std::swap(r.fLeft, r.fTop);
+                std::swap(r.fRight, r.fBottom);
             }
         }
 

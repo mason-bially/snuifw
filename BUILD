@@ -65,7 +65,7 @@ cc_library(
     includes = ["src"],
     deps = [
         "@lager//:lager",
-        "@yoga//:yoga",
+        #"@yoga//:yoga",
         "@glfw//:glfw",
         "@skia//:skia",
         #"@h3//:h3"

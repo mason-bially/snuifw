@@ -1,28 +1,27 @@
 #include "context.h"
 
-
 using namespace snuifw;
 
 void Context::init()
 {
     if (!glfwInit()) {
-		throw std::exception("GLFW Problem Bro");
-	}
+			throw std::exception();
+		}
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	//(uncomment to enable correct color spaces) glfwWindowHint(GLFW_SRGB_CAPABLE, GL_TRUE);
-	glfwWindowHint(GLFW_STENCIL_BITS, 0);
-	//glfwWindowHint(GLFW_ALPHA_BITS, 0);
-	glfwWindowHint(GLFW_DEPTH_BITS, 0);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		//(uncomment to enable correct color spaces) glfwWindowHint(GLFW_SRGB_CAPABLE, GL_TRUE);
+		glfwWindowHint(GLFW_STENCIL_BITS, 0);
+		//glfwWindowHint(GLFW_ALPHA_BITS, 0);
+		glfwWindowHint(GLFW_DEPTH_BITS, 0);
 
-    window = glfwCreateWindow(_model.window.width, _model.window.height, _model.window.name.c_str(), NULL, NULL);
-	if (!window) {
-		glfwTerminate();
-		exit(EXIT_FAILURE);
-	}
+		window = glfwCreateWindow(_model.window.width, _model.window.height, _model.window.name.c_str(), NULL, NULL);
+		if (!window) {
+			glfwTerminate();
+			exit(EXIT_FAILURE);
+		}
 	glfwMakeContextCurrent(window);
 
     GrContextOptions options;

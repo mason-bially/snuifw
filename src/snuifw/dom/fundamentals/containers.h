@@ -23,7 +23,7 @@ namespace snuifw {
         inline VTile& operator[](std::shared_ptr<IElement> child) { _children = { child }; return *this; }
 
     protected:
-        inline virtual std::vector<std::shared_ptr<IElement>> const* children() { return &_children; }
+        inline virtual std::vector<std::shared_ptr<IElement>> const* children() override { return &_children; }
 
     protected:
         inline virtual LayoutDescription layoutDescription() const override { return _layout; }
