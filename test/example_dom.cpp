@@ -38,10 +38,18 @@ int main(void) {
     dom->setRoot(
         VTile() [
             VTile() [
-                Text().value("hey"),
-                Text().value("hey")
+                Box().color(SkColorSetARGB(255, 255, 0, 0)).size({ 100.f, 100.f }),
+                Box().color(SkColorSetARGB(255, 255, 64, 0)).size({ 100.f, 100.f }),
+                Box().color(SkColorSetARGB(255, 255, 128, 0)).size({ 100.f, 200.f }),
+                Box().color(SkColorSetARGB(255, 255, 64, 0)).size({ 100.f, 100.f }),
+                Box().color(SkColorSetARGB(255, 255, 0, 0)).size({ 100.f, 100.f }),
+                Box().color(SkColorSetARGB(255, 255, 0, 0)).size({ 100.f, 100.f }),
+                Box().color(SkColorSetARGB(255, 255, 64, 0)).size({ 100.f, 100.f }),
+                Box().color(SkColorSetARGB(255, 255, 128, 0)).size({ 100.f, 200.f }),
+                Box().color(SkColorSetARGB(255, 255, 64, 0)).size({ 100.f, 100.f }),
+                Box().color(SkColorSetARGB(255, 255, 0, 0)).size({ 100.f, 100.f })
             ],
-            Text().value("hey")
+            Box().color(SkColorSetARGB(255, 255, 0, 255)).size({ 100.f, 100.f })
         ]);
 
 	while (!glfwWindowShouldClose(c.window))

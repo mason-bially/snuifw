@@ -1,17 +1,19 @@
 #pragma once
 #include "snuifw/common.h"
-
-#include "snuifw/dom.h"
+#include "snuifw/dom/dom.h"
 
 namespace snuifw {
     class VTile
         : public IFundamental
+        , private FlowLayouter<true>
     {
     private:
+        LayoutDescription _layout;
+
         std::vector<std::shared_ptr<IElement>> _children;
 
     public:
-        VTile() = default;
+        VTile();
         inline virtual ~VTile() = default;
 
         operator std::shared_ptr<IElement>() const { return std::static_pointer_cast<IElement>(std::make_shared<VTile>(*this)); }
@@ -24,7 +26,8 @@ namespace snuifw {
         inline virtual std::vector<std::shared_ptr<IElement>> const* children() { return &_children; }
 
     protected:
-        virtual SkRect layout(SkRect const& container_bounds) const override;
+        inline virtual LayoutDescription layoutDescription() const override { return _layout; }
+        inline virtual ILayoutCalculator* layoutCalculator() const override { return (FlowLayouter<true>*)this; }
         virtual void draw(SkCanvas* canvas) override;
     };
 }

@@ -2,9 +2,9 @@
 
 using namespace snuifw;
 
-SkRect VTile::layout(SkRect const& container_bounds) const
+VTile::VTile()
 {
-    return container_bounds;
+    _layout.flags = LayoutDescription::HasLayoutCalculator;
 }
 
 void VTile::draw(SkCanvas* canvas)

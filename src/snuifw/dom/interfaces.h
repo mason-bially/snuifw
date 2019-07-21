@@ -1,8 +1,11 @@
 #pragma once
 #include "snuifw/common.h"
+#include "snuifw/dom/dom.h"
 
 namespace snuifw {
 
+    struct LayoutDescription;
+    struct ILayoutCalculator;
 
     class IElement 
     {
@@ -25,7 +28,10 @@ namespace snuifw {
         inline virtual bool isFundamental() override { return true; }
 
     public:
-        virtual SkRect layout(SkRect const& container_bounds) const = 0;
+        virtual LayoutDescription layoutDescription() const = 0;
+        inline virtual ILayoutCalculator const* layoutCalculator() const { return nullptr; }
+        virtual void layoutBounds(SkRect* bounds, bool preferWidth = true) const { throw std::runtime_error("Not implemented."); }
+
         virtual void draw(SkCanvas* canvas) = 0;
     };
 
@@ -57,47 +63,4 @@ namespace snuifw {
         res.push_back(b);
         return res;
     }
-
-
-    class DomContext
-    {
-    private:
-        struct ShadowDom
-        {
-            // Take the 0'th element to get the fundamental
-            std::deque<std::shared_ptr<IElement>> shadowStack;
-            
-            std::vector<ShadowDom> shadowChildren;
-
-            SkRect bounds;
-
-            inline std::shared_ptr<IElement> const& front() const
-            {
-                return shadowStack.front();
-            }
-
-            inline std::shared_ptr<IFundamental> getFundamental() const
-            {
-                return std::static_pointer_cast<IFundamental>(shadowStack.front());
-            }
-        };
-
-    private:
-        SkSurface* _surface;
-        std::shared_ptr<IElement> _root;
-
-        ShadowDom _shadow;
-
-    private:
-        void _shadowRender(ShadowDom& shadow, std::shared_ptr<IElement> const& elem);
-        void _shadowDraw(SkCanvas* canvas, ShadowDom const& d);
-
-    public:
-        DomContext(SkSurface* surface);
-
-        std::shared_ptr<IElement> getRoot();
-        void setRoot(std::shared_ptr<IElement>);
-
-        void render();
-    };
 }
