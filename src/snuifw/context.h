@@ -6,32 +6,49 @@
 
 namespace snuifw {
 
-
     class Context 
     {
-    public:
+    private:
         //TODO template this
         model::Model _model;
-        GrContext* sContext = nullptr;
-        SkSurface* sSurface = nullptr;
+
+        GrContext* _context = nullptr;
+        GrGLFramebufferInfo _frameBuffer;
+        GrBackendRenderTarget _renderTarget;
+        SkSurface* _surface = nullptr;
+
+        bool _canceled = false;
+        bool _inMain = false;
+
     public:
-        
-        virtual void init();
-        virtual void teardown();
-        virtual bool is_running();
-        virtual void wait_events();
-    private:
-        void init_glfw();
-        void init_skia();
-        void fill_window_events();
+        inline SkSurface* getSurface() { return _surface; };
+        inline model::Model& getModel() { return _model; };
+        GLFWwindow* getWindow();
+
+    public:
+        void init();
+        void teardown();
+        bool isRunning();
+        void close();
+        void main(); // takes control until canceled
+
+        std::function<void ()> loop; // not rate limited
+
+    public:
+        void swap(); // is vsync right now
         void dispatch(model::action);
 
-    public:
-        GLFWwindow* window_weak_ref();
+    private:
+        void _initGlfw();
+        void _initSkia();
+        void _fillWindowEvents();
+
+        bool _rebuildSurface(int w, int h);
 
     private:
-        void keyCallback(GLFWwindow* w,int k,int s,int a, int m);
-        void windowFocusCallback(GLFWwindow* w, int i);
-        void framebufferResizeCallback(GLFWwindow *c, int w, int h);
+        void _keyCallback(GLFWwindow* w,int k,int s,int a, int m);
+        void _windowFocusCallback(GLFWwindow* w, int i);
+        void _windowRefreshCallback(GLFWwindow* w);
+        void _framebufferResizeCallback(GLFWwindow *c, int w, int h);
     };
 }

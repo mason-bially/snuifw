@@ -1,14 +1,18 @@
 #include "context.h"
 
+#include <iostream>
 
 using namespace snuifw;
 
+GLFWwindow * Context::getWindow()
+{
+	return _model.window.window->window();
+}
+
 void Context::init()
 {
-    init_glfw();
-    init_skia();
-
-    fill_window_events();    
+    _initGlfw();
+    _initSkia();
 }
 
 void Context::teardown()
@@ -16,18 +20,44 @@ void Context::teardown()
     dispatch(model::set_window_action {std::make_shared<util::WindowContainer>(nullptr)});
 	glfwTerminate();
 
-    delete sSurface;
-	delete sContext;
+    delete _surface;
+	delete _context;
 }
 
-bool Context::is_running()
+bool Context::isRunning()
 {
-    return glfwWindowShouldClose(window_weak_ref());
+    return !glfwWindowShouldClose(getWindow()) && !_canceled;
+}
+
+void Context::close()
+{
+	_canceled = true;
+}
+void Context::main()
+{
+	_canceled = false;
+	_inMain = true;
+	while (isRunning())
+	{
+		glfwWaitEvents();
+
+		loop();
+	}
+	_inMain = false;
+}
+
+void Context::swap()
+{
+	glfwSwapBuffers(getWindow());
+}
+
+void Context::dispatch(model::action a)
+{
+	_model = model::update(_model, a);
 }
 
 
-
-void Context::init_glfw()
+void Context::_initGlfw()
 {
     if (!glfwInit()) {
 		throw std::exception("GLFW Problem Bro");
@@ -54,19 +84,32 @@ void Context::init_glfw()
 	dispatch(model::set_window_action {
 		std::make_shared<util::WindowContainer>(window)
 	});
+
+    _fillWindowEvents();
 }
 
-void Context::init_skia()
+void Context::_initSkia()
 {
     GrContextOptions options;
 	//options.fRequireDecodeDisableForSRGB = false;
-	sContext = GrContext::MakeGL(nullptr, options).release();
+	_context = GrContext::MakeGL(nullptr, options).release();
 
-	GrGLFramebufferInfo framebufferInfo;
-	framebufferInfo.fFBOID = 0; // assume default framebuffer
+	_frameBuffer = GrGLFramebufferInfo();
+	_renderTarget = GrBackendRenderTarget();
+
+	if (!_rebuildSurface(_model.window.width, _model.window.height))
+		throw std::runtime_error("Could not initalize surface.");
+}
+
+bool Context::_rebuildSurface(int w, int h)
+{
+	if (_surface != nullptr)
+		delete _surface;
+
+	_frameBuffer.fFBOID = 0; // assume default framebuffer
 	// We are always using OpenGL and we use RGBA8 internal format for both RGBA and BGRA configs in OpenGL.
 	//(replace line below with this one to enable correct color spaces) framebufferInfo.fFormat = GL_SRGB8_ALPHA8;
-	framebufferInfo.fFormat = GL_RGBA8;
+	_frameBuffer.fFormat = GL_RGBA8;
 
 	SkColorType colorType;
 	if (kRGBA_8888_GrPixelConfig == kSkia8888_GrPixelConfig) {
@@ -75,26 +118,29 @@ void Context::init_skia()
 	else {
 		colorType = kBGRA_8888_SkColorType;
 	}
-	GrBackendRenderTarget backendRenderTarget(_model.window.width, _model.window.height,
+
+	_renderTarget =  GrBackendRenderTarget(
+		w, h,
 		0, // sample count
 		0, // stencil bits
-		framebufferInfo);
+		_frameBuffer);
 
-	//(replace line below with this one to enable correct color spaces) sSurface = SkSurface::MakeFromBackendRenderTarget(sContext, backendRenderTarget, kBottomLeft_GrSurfaceOrigin, colorType, SkColorSpace::MakeSRGB(), nullptr).release();
-	sSurface = SkSurface::MakeFromBackendRenderTarget(sContext, backendRenderTarget, kBottomLeft_GrSurfaceOrigin, colorType, nullptr, nullptr).release();
-	if (sSurface == nullptr) abort();
+	//(replace line below with this one to enable correct color spaces) _surface = SkSurface::MakeFromBackendRenderTarget(_context, backendRenderTarget, kBottomLeft_GrSurfaceOrigin, colorType, SkColorSpace::MakeSRGB(), nullptr).release();
+	_surface = SkSurface::MakeFromBackendRenderTarget(_context, _renderTarget, kBottomLeft_GrSurfaceOrigin, colorType, nullptr, nullptr).release();
+	return _surface != nullptr;
 }
 
-void Context::fill_window_events()
+void Context::_fillWindowEvents()
 {
 	#define DREF ((Context*)glfwGetWindowUserPointer(w))
-    glfwSetKeyCallback(window_weak_ref(), [](GLFWwindow* w,int k,int s,int a, int m) {DREF->keyCallback(w, k, s, a, m);});
-	glfwSetWindowFocusCallback(window_weak_ref(), [](GLFWwindow* w, int i) {DREF->windowFocusCallback(w, i);});
-	glfwSetFramebufferSizeCallback(window_weak_ref(), [](GLFWwindow *w, int x, int y) {DREF->framebufferResizeCallback(w, x, y);});
+    glfwSetKeyCallback(getWindow(), [](GLFWwindow* w,int k,int s,int a, int m) {DREF->_keyCallback(w, k, s, a, m);});
+	glfwSetWindowFocusCallback(getWindow(), [](GLFWwindow* w, int i) {DREF->_windowFocusCallback(w, i);});
+	glfwSetWindowRefreshCallback(getWindow(), [](GLFWwindow *w) {DREF->_windowRefreshCallback(w);});
+	glfwSetFramebufferSizeCallback(getWindow(), [](GLFWwindow* w, int d, int h) {DREF->_framebufferResizeCallback(w, d, h);});
 	#undef DREF
 }
 
-void Context::keyCallback(GLFWwindow* w,int k,int s,int a, int m)
+void Context::_keyCallback(GLFWwindow* w,int k,int s,int a, int m)
 {
 	if(s == glfwGetKeyScancode(GLFW_KEY_Z) && a == GLFW_PRESS && (m & GLFW_MOD_CONTROL))
 	{
@@ -113,27 +159,23 @@ void Context::keyCallback(GLFWwindow* w,int k,int s,int a, int m)
 	} 
 }
 
-void Context::windowFocusCallback(GLFWwindow* w, int i) 
+void Context::_windowFocusCallback(GLFWwindow* w, int i) 
 {
 	dispatch(model::window_focused{bool(i)});
 }
 
-void Context::framebufferResizeCallback(GLFWwindow *c, int w, int h)
+void Context::_windowRefreshCallback(GLFWwindow *w)
 {
+
+}
+
+void Context::_framebufferResizeCallback(GLFWwindow *c, int w, int h)
+{
+	// TODO, decompose these events to be:
+	// - NativeWindowResized
+	//   - _rebuildSurface
+	//   - AppWindowResized
+	_rebuildSurface(w, h);
 	dispatch(model::window_resized{w, h});
-}
-
-void Context::dispatch(model::action a)
-{
-	_model = model::update(_model, a);
-}
-
-void Context::wait_events()
-{
-	glfwWaitEvents();
-}
-
-GLFWwindow * Context::window_weak_ref()
-{
-	return _model.window.window->window();
+	loop();
 }

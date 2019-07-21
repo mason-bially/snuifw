@@ -33,7 +33,7 @@ int main(void) {
     Context c;
     c.init();
 
-    auto dom = new snuifw::DomContext(c.sSurface);
+    auto dom = new snuifw::DomRoot(&c);
 
     dom->setRoot(
         VTile() [
@@ -52,14 +52,14 @@ int main(void) {
             Box().color(SkColorSetARGB(255, 255, 0, 255)).size({ 100.f, 100.f })
         ]);
 
-	while (!glfwWindowShouldClose(c.window_weak_ref()))
+	c.loop = [&]()
     {
-		c.wait_events();
-
 		dom->render();
 
-		glfwSwapBuffers(c.window_weak_ref());
-	}
+        c.swap();
+    };
+
+    c.main();
 
 	exit(EXIT_SUCCESS);
 }

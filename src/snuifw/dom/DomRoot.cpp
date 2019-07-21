@@ -2,23 +2,23 @@
 
 using namespace snuifw;
 
-DomContext::DomContext(SkSurface* surface)
-    : _surface(surface)
+DomRoot::DomRoot(Context* context)
+    : _context(context)
 {
 
 }
 
-std::shared_ptr<IElement> DomContext::getRoot()
+std::shared_ptr<IElement> DomRoot::getRoot()
 {
     return _root;
 }
 
-void DomContext::setRoot(std::shared_ptr<IElement> i)
+void DomRoot::setRoot(std::shared_ptr<IElement> i)
 {
     _root = i;
 }
 
-void DomContext::_shadowRender(ShadowDom& shadow, std::shared_ptr<IElement> const& elem)
+void DomRoot::_shadowRender(ShadowDom& shadow, std::shared_ptr<IElement> const& elem)
 {
     shadow.shadowStack.push_front(elem);
 
@@ -41,7 +41,7 @@ void DomContext::_shadowRender(ShadowDom& shadow, std::shared_ptr<IElement> cons
     }
 }
 
-void DomContext::_shadowLayout(ShadowDom& shadow, SkRect* bounds)
+void DomRoot::_shadowLayout(ShadowDom& shadow, SkRect* bounds)
 {
     auto childCount = shadow.shadowChildren.size();
     if (childCount != 0)
@@ -110,7 +110,7 @@ void DomContext::_shadowLayout(ShadowDom& shadow, SkRect* bounds)
     shadow.bounds = *bounds;
 }
 
-void DomContext::_shadowDraw(SkCanvas* canvas, ShadowDom const& d)
+void DomRoot::_shadowDraw(SkCanvas* canvas, ShadowDom const& d)
 {
     canvas->save();
     canvas->translate(d.bounds.left(), d.bounds.top());
@@ -124,13 +124,13 @@ void DomContext::_shadowDraw(SkCanvas* canvas, ShadowDom const& d)
     }
 }
 
-void DomContext::render()
+void DomRoot::render()
 {
     _shadow = {};
     _shadowRender(_shadow, _root);
 
 
-    SkCanvas* canvas = _surface->getCanvas();
+    SkCanvas* canvas = _context->getSurface()->getCanvas();
     canvas->drawColor(SkColorSetARGB(255, 127, 127, 127));
 
     auto bounds = canvas->getLocalClipBounds();

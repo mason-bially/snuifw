@@ -1,9 +1,11 @@
 #pragma once
 #include "snuifw/common.h"
 
+#include "snuifw/context.h"
+
 namespace snuifw {
 
-    class DomContext
+    class DomRoot
     {
     private:
         struct ShadowDom
@@ -27,7 +29,7 @@ namespace snuifw {
         };
 
     private:
-        SkSurface* _surface;
+        Context* _context;
         std::shared_ptr<IElement> _root;
 
         ShadowDom _shadow;
@@ -38,7 +40,7 @@ namespace snuifw {
         void _shadowDraw(SkCanvas* canvas, ShadowDom const& d);
 
     public:
-        DomContext(SkSurface* surface);
+        DomRoot(Context* context);
 
         std::shared_ptr<IElement> getRoot();
         void setRoot(std::shared_ptr<IElement>);
