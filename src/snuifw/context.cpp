@@ -13,7 +13,7 @@ void Context::init()
 
 void Context::teardown()
 {
-    dispatch(model::set_window_action {std::make_shared<model::WindowContainer>(nullptr)});
+    dispatch(model::set_window_action {std::make_shared<util::WindowContainer>(nullptr)});
 	glfwTerminate();
 
     delete sSurface;
@@ -52,7 +52,7 @@ void Context::init_glfw()
     glfwSwapInterval(1);
 
 	dispatch(model::set_window_action {
-		std::make_shared<model::WindowContainer>(window)
+		std::make_shared<util::WindowContainer>(window)
 	});
 }
 

@@ -1,4 +1,6 @@
 #pragma once
+#include "snuifw/common.h"
+#include "snuifw/util/window.h"
 
 #include "lager/util.hpp"
 
@@ -7,25 +9,16 @@
 
 namespace model {
 
-    class WindowContainer
-    {
-        GLFWwindow* _window;
-        public:
-            inline WindowContainer(GLFWwindow* window): _window(window) {};
-            inline ~WindowContainer(){ if(_window){glfwDestroyWindow(_window);}}
-
-            inline GLFWwindow* window() {return _window;}
-    };
+    
 
     struct WindowModel {
-        std::shared_ptr<WindowContainer> window;
+        std::shared_ptr<snuifw::util::WindowContainer> window;
         
         int x = 0;
         int y = 0;
         bool focused = true;
         int width = 960;
         int height = 640;
-
         std::string name = "Hello World";
     };
 
@@ -44,7 +37,7 @@ namespace model {
     };
 
     struct set_window_action {
-        std::shared_ptr<WindowContainer> window;
+        std::shared_ptr<snuifw::util::WindowContainer> window;
     };
 
 
