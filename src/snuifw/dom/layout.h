@@ -73,6 +73,11 @@ namespace snuifw {
     class FlowLayouter
         : public ILayoutCalculator
     {
+        protected:
+
+        bool _flowMode = true;
+        bool _stretchMode = true;
+
         inline void maybeSwap(SkRect& r) const
         {
             if constexpr (!IsVertical)
@@ -87,7 +92,7 @@ namespace snuifw {
             SkRect agreedBounds = *agreedBounds_;
             maybeSwap(agreedBounds);
 
-            float thisWidth = agreedBounds.width();
+            float thisWidth = _stretchMode ? agreedBounds.width() : 0.f;
             float thisHeight = 0.f;
             SkPoint currentLayoutPoint = SkPoint();
 
@@ -95,17 +100,17 @@ namespace snuifw {
             {
                 SkRect current = SkRect::MakeXYWH(
                     currentLayoutPoint.fX, currentLayoutPoint.fY,
-                    thisWidth - currentLayoutPoint.fX, agreedBounds.height() - currentLayoutPoint.fY);
+                    agreedBounds.width() - currentLayoutPoint.fX, agreedBounds.height() - currentLayoutPoint.fY);
                 maybeSwap(current);
 
                 bool bumpedToNewRow = false;
-                // try giving it the next part down
-                if (!engine->attemptChildLayout(i, &current, IsVertical))
+                if (!_flowMode || !engine->attemptChildLayout(i, &current, IsVertical))
                 {
+                    // try give it the next part down
                     bumpedToNewRow = true;
                     current = SkRect::MakeXYWH(
                         0.f, thisHeight,
-                        thisWidth, agreedBounds.height() - thisHeight);
+                        agreedBounds.width(), agreedBounds.height() - thisHeight);
                     maybeSwap(current);
 
                     if (!engine->attemptChildLayout(i, &current, IsVertical))
@@ -114,6 +119,8 @@ namespace snuifw {
 
                 maybeSwap(current);
                 thisHeight = std::max(current.bottom(), thisHeight);
+                if (!_stretchMode)
+                    thisWidth = std::max(current.right(), thisWidth);
                 currentLayoutPoint.fX = current.right();
                 if (bumpedToNewRow)
                     currentLayoutPoint.fY = current.top();

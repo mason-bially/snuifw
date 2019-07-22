@@ -24,7 +24,7 @@ namespace snuifw {
         inline Box& size(SkSize const& size) {  _size = size; _dirtyLayout(); return *this; }
 
     protected:
-        inline virtual LayoutDescription layoutDescription() const override { return _layout; }
+        inline virtual LayoutDescription const& layoutDescription() const override { return _layout; }
 
         virtual void draw(SkCanvas* canvas) override;
     };

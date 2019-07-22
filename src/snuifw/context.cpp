@@ -1,7 +1,5 @@
 #include "context.h"
 
-#include <iostream>
-
 using namespace snuifw;
 
 GLFWwindow * Context::getWindow()
@@ -121,7 +119,7 @@ bool Context::_rebuildSurface(int w, int h)
 
 	_renderTarget =  GrBackendRenderTarget(
 		w, h,
-		0, // sample count
+		4, // sample count
 		0, // stencil bits
 		_frameBuffer);
 

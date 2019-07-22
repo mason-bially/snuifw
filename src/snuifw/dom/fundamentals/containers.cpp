@@ -2,12 +2,17 @@
 
 using namespace snuifw;
 
-VTile::VTile()
+template<bool IsVertical>
+_details::Flow<IsVertical>::Flow()
 {
     _layout.flags = LayoutDescription::HasLayoutCalculator;
 }
 
-void VTile::draw(SkCanvas* canvas)
+template<bool IsVertical>
+void _details::Flow<IsVertical>::draw(SkCanvas* canvas)
 {
     canvas->drawColor(SkColorSetARGB(255, 255, 255, 255));
 }
+
+template class _details::Flow<true>;
+template class _details::Flow<false>;

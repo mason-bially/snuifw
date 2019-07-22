@@ -102,11 +102,19 @@ void DomRoot::_shadowLayout(ShadowDom& shadow, SkRect* bounds)
                 }
             });
 
-            *bounds = layouter->layout(&engine, fundamental.get(), bounds, childCount);
+            // Layout engines expect to layout a fresh area of space everytime.
+            SkRect self_bounds = SkRect::MakeXYWH(
+                0.f, 0.f,
+                bounds->width(), bounds->height()
+            );
+
+            self_bounds = layouter->layout(&engine, fundamental.get(), &self_bounds, childCount);
+
+            bounds->fRight = bounds->fLeft + self_bounds.width();
+            bounds->fBottom = bounds->fTop + self_bounds.height();
         }
     }
 
-    
     shadow.bounds = *bounds;
 }
 
@@ -116,12 +124,12 @@ void DomRoot::_shadowDraw(SkCanvas* canvas, ShadowDom const& d)
     canvas->translate(d.bounds.left(), d.bounds.top());
     canvas->clipRect(SkRect::MakeWH(d.bounds.width(), d.bounds.height()));
     d.getFundamental()->draw(canvas);
-    canvas->restore();
 
     for (auto cit = d.shadowChildren.cbegin(); cit != d.shadowChildren.cend(); ++cit)
     {
         _shadowDraw(canvas, *cit);
     }
+    canvas->restore();
 }
 
 void DomRoot::render()

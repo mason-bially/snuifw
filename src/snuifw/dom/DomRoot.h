@@ -15,6 +15,7 @@ namespace snuifw {
             
             std::vector<ShadowDom> shadowChildren;
 
+            // All bounds stored local to parent
             SkRect bounds;
 
             inline std::shared_ptr<IElement> const& front() const

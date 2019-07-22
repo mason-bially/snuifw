@@ -28,7 +28,7 @@ namespace snuifw {
         inline virtual bool isFundamental() override { return true; }
 
     public:
-        virtual LayoutDescription layoutDescription() const = 0;
+        virtual LayoutDescription const& layoutDescription() const = 0;
         inline virtual ILayoutCalculator const* layoutCalculator() const { return nullptr; }
         virtual void layoutBounds(SkRect* bounds, bool preferWidth = true) const { throw std::runtime_error("Not implemented."); }
 
