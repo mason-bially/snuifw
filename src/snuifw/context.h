@@ -48,7 +48,6 @@ namespace snuifw {
     private:
         void _keyCallback(GLFWwindow* w,int k,int s,int a, int m);
         void _windowFocusCallback(GLFWwindow* w, int i);
-        void _windowRefreshCallback(GLFWwindow* w);
         void _framebufferResizeCallback(GLFWwindow *c, int w, int h);
     };
 }

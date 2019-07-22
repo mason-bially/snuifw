@@ -15,7 +15,7 @@ void Context::init()
 
 void Context::teardown()
 {
-    dispatch(model::set_window_action {std::make_shared<util::WindowContainer>(nullptr)});
+    dispatch(model::window::a_window {std::make_shared<util::WindowContainer>(nullptr)});
 	glfwTerminate();
 
     delete _surface;
@@ -79,7 +79,7 @@ void Context::_initGlfw()
     glfwSetWindowUserPointer(window, this);		
     glfwSwapInterval(1);
 
-	dispatch(model::set_window_action {
+	dispatch(model::window::a_window {
 		std::make_shared<util::WindowContainer>(window)
 	});
 
@@ -133,7 +133,6 @@ void Context::_fillWindowEvents()
 	#define DREF ((Context*)glfwGetWindowUserPointer(w))
     glfwSetKeyCallback(getWindow(), [](GLFWwindow* w,int k,int s,int a, int m) {DREF->_keyCallback(w, k, s, a, m);});
 	glfwSetWindowFocusCallback(getWindow(), [](GLFWwindow* w, int i) {DREF->_windowFocusCallback(w, i);});
-	glfwSetWindowRefreshCallback(getWindow(), [](GLFWwindow *w) {DREF->_windowRefreshCallback(w);});
 	glfwSetFramebufferSizeCallback(getWindow(), [](GLFWwindow* w, int d, int h) {DREF->_framebufferResizeCallback(w, d, h);});
 	#undef DREF
 }
@@ -159,13 +158,9 @@ void Context::_keyCallback(GLFWwindow* w,int k,int s,int a, int m)
 
 void Context::_windowFocusCallback(GLFWwindow* w, int i) 
 {
-	dispatch(model::window_focused{bool(i)});
+	dispatch(model::window::a_focused{bool(i)});
 }
 
-void Context::_windowRefreshCallback(GLFWwindow *w)
-{
-
-}
 
 void Context::_framebufferResizeCallback(GLFWwindow *c, int w, int h)
 {
@@ -174,6 +169,6 @@ void Context::_framebufferResizeCallback(GLFWwindow *c, int w, int h)
 	//   - _rebuildSurface
 	//   - AppWindowResized
 	_rebuildSurface(w, h);
-	dispatch(model::window_resized{w, h});
+	dispatch(model::window::a_resized{w, h});
 	loop();
 }

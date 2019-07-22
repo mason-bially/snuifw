@@ -12,7 +12,7 @@ namespace model {
 
 struct Model
 {
-    WindowModel window;
+    window::Model window;
     KeyModel key;
 };
 
@@ -23,13 +23,13 @@ struct zoom_action
 
 
 
-using action = std::variant<key_action, window_action>;
+using action = std::variant<key_action, window::action>;
 
 inline Model update(Model c, action action)
 {
     return std::visit(
         lager::visitor{
-            [&](window_action a) { c.window = update_window(c.window, a); return c;},
+            [&](window::action a) { c.window = update_window(c.window, a); return c;},
             [&](key_action a) { c.key = update_key(c.key, a); return c;}  
         },
         action);

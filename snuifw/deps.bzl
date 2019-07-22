@@ -35,7 +35,7 @@ def snuifw_deps():
     if "lager" not in native.existing_rules():
         http_archive(
             name = "lager",
-            urls = ["https://github.com/cgrinker/lager/archive/628b534bf253d905c5db45bcc981ba4f4ef56442.zip"],
-            strip_prefix = "lager-628b534bf253d905c5db45bcc981ba4f4ef56442",
-            sha256 = "e8cde886b5a87a07c7027d2f12a1cfb387003f7edabf7e083768edd8f811f9f3"
+            urls = ["https://github.com/cgrinker/lager/archive/f22d909f6c9e66cde40be1908280c291dedcf960.zip"],
+            strip_prefix = "lager-f22d909f6c9e66cde40be1908280c291dedcf960",
+            sha256 = "a4ff68dd80912c1b8f4b9195e479c234853aaee376ccbecb6047406c408cae3f"
         )

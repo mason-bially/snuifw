@@ -8,12 +8,12 @@
 #include <variant>
 
 namespace model {
-
-    
-
-    struct WindowModel {
+namespace window
+{
+    struct Model {
         std::shared_ptr<snuifw::util::WindowContainer> window;
-        
+        snuifw::util::WindowEvents events;
+
         int x = 0;
         int y = 0;
         bool focused = true;
@@ -23,44 +23,53 @@ namespace model {
     };
 
 
-    struct window_focused {
+    struct a_focused {
         bool focused;
     };
 
-    struct window_resized {
+    struct a_resized {
         int w;
         int h;
     };
 
-    struct window_name_action {
+    struct a_events {
+        snuifw::util::WindowEvents events;
+    };
+
+    struct a_name {
         std::string name;
     };
 
-    struct set_window_action {
+    struct a_window {
         std::shared_ptr<snuifw::util::WindowContainer> window;
     };
 
 
-    using window_action = std::variant<
-        window_name_action, 
-        set_window_action,
-        window_resized,
-        window_focused
+    using action = std::variant<
+        a_focused,
+        a_resized, 
+        a_events,
+        a_name,
+        a_window
     >;
 
-    inline WindowModel update_window(WindowModel c, window_action action)
+    inline Model update_window(Model c, action action)
     {
         return std::visit(
             lager::visitor{
-                [&](window_name_action a) { c.name = a.name; return c;},
-                [&](set_window_action a) { c.window = a.window; return c;},
-                [&](window_focused a) { c.focused = a.focused; return c;},
-                [&](window_resized a) { 
+                [&](a_name a) { c.name = a.name; return c;},
+                [&](a_window a) { c.window = a.window; return c;},
+                [&](a_focused a) { c.focused = a.focused; return c;},
+                [&](a_resized a) { 
                     c.width = a.w; c.height = a.h; 
                     return c;
                 },
+                [&](a_events a) {
+                    c.events = a.events;
+                    return c;
+                } 
             },
             action);
     }
 
-}
+}}
