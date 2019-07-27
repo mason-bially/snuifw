@@ -67,7 +67,6 @@ cc_library(
         #"@yoga//:yoga",
         "@glfw//:glfw",
         "@skia//:skia",
-        "@org_cultlang_stdext//:stdext"
         #"@h3//:h3"
     ],
 
@@ -81,12 +80,24 @@ cc_binary(
     name = "example_dom",
     srcs = glob(["test/example_dom.cpp"]),
     deps = [
-        "@immer//:immer",
         ":snuifw",
     ],
 
     copts = select({
         "@bazel_tools//src/conditions:windows": ["/std:c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
+)
+
+cc_binary(
+    name = "example_model",
+    srcs = glob(["test/example_model.cpp"]),
+    deps = [
+        ":snuifw",
+    ],
+
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std:c++17", "/experimental"],
         "//conditions:default": ["-std=c++17"],
     }),
 )

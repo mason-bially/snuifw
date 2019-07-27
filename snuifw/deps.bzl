@@ -25,13 +25,6 @@ def snuifw_deps():
             #sha256 = "",
         )
 
-    if "org_cultlang_stdext" not in native.existing_rules():
-        http_archive(
-                name = "org_cultlang_stdext",
-                urls = ["https://github.com/cultlang/stdext/archive/6c067080a7569bb920302c5d5d6e607cbaefca85.zip"],
-                strip_prefix = "stdext-6c067080a7569bb920302c5d5d6e607cbaefca85",
-                #sha256 = "47bfbcd67de242ed0010e9e35c369adadac1b8e8b4f3d081ba432dc0e88471f7",
-        )
     if "lager" not in native.existing_rules():
         http_archive(
             name = "lager",

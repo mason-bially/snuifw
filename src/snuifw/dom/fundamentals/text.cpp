@@ -129,9 +129,12 @@ void Text::draw(SkCanvas* canvas)
     SkFont const& font = _font == nullptr ? SkFont() : *_font;
 
     auto y = -_fontRenderHeight;
-    for (auto line : _lines)
-    {
-        canvas->drawSimpleText(line.value.data(), line.value.size(), SkTextEncoding::kUTF8, 0, y, font, paint);
-        y += _scaledSpacing;
-    }
+    if (_lines.size() == 0)
+        canvas->drawSimpleText(_value.data(), _value.size(), SkTextEncoding::kUTF8, 0, y, font, paint);
+    else
+        for (auto line : _lines)
+        {
+            canvas->drawSimpleText(line.value.data(), line.value.size(), SkTextEncoding::kUTF8, 0, y, font, paint);
+            y += _scaledSpacing;
+        }
 }

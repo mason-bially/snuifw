@@ -9,6 +9,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
 
 #include "snuifw/snuifw.h"
 
@@ -52,6 +53,7 @@ int main(void) {
     dom->setRoot(
         VFlow().flow(false).stretch(false) [
             Box().color(SkColorSetARGB(255, 255, 0, 255)).size({ 20.f, 20.f }),
+            Text().value(std::to_string(_MSC_VER)).font(default_font),
             Text().value(ipsum).font(default_font),
             Text().value(ipsum).font(fancy_font),
             Text().value(ipsum).font(sans_font).spacing_add(-2.f),
