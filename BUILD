@@ -27,37 +27,10 @@ cc_library(
     ]
 )
 
-cc_binary(
-    name = "example_glfw",
-    srcs = ["test/example_glfw.cpp"],
-    deps = [
-        "@glfw//:glfw",
-        ":gl3"
-    ],
-
-    copts = select({
-        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
-        "//conditions:default": ["-std=c++17"],
-    }),
-)
-
-
-cc_binary(
-    name = "example_skia",
-    srcs = ["test/example_skia.cpp"],
-    deps = [
-        "@glfw//:glfw",
-        "@skia//:skia",
-    ],
-
-    copts = select({
-        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
-        "//conditions:default": ["-std=c++17"],
-    }),
-)
-
 cc_library(
     name = "snuifw",
+    visibility = ["//visibility:public"],
+    
     hdrs = glob(["src/**/*.h*"]),
     srcs = glob(["src/**/*.c*"]),
     includes = ["src"],
@@ -67,32 +40,6 @@ cc_library(
         "@glfw//:glfw",
         "@skia//:skia",
         #"@h3//:h3"
-    ],
-
-    copts = select({
-        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
-        "//conditions:default": ["-std=c++17"],
-    }),
-)
-
-cc_binary(
-    name = "example_dom",
-    srcs = glob(["test/example_dom.cpp"]),
-    deps = [
-        ":snuifw",
-    ],
-
-    copts = select({
-        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
-        "//conditions:default": ["-std=c++17"],
-    }),
-)
-
-cc_binary(
-    name = "example_model",
-    srcs = glob(["test/example_model.cpp"]),
-    deps = [
-        ":snuifw",
     ],
 
     copts = select({

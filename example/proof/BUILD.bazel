@@ -1,0 +1,30 @@
+
+
+cc_binary(
+    name = "glfw",
+    srcs = ["example_app_glfw.cpp"],
+    deps = [
+        "@glfw//:glfw",
+        "//:gl3"
+    ],
+
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
+)
+
+
+cc_binary(
+    name = "skia",
+    srcs = ["example_draw_skia.cpp"],
+    deps = [
+        "@glfw//:glfw",
+        "@skia//:skia",
+    ],
+
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
+)
