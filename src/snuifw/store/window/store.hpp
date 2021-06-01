@@ -1,16 +1,14 @@
 #pragma once
+
 #include "snuifw/common.h"
 #include "snuifw/util/window.h"
+#include "snuifw/util/helpers.hpp"
 
-#include "lager/util.hpp"
 
-
-#include <variant>
-
-namespace model {
-namespace window
+namespace snuifw::model::window
 {
-    struct Model {
+    struct Model
+    {
         std::shared_ptr<snuifw::util::WindowContainer> window;
         snuifw::util::WindowEvents events;
 
@@ -23,24 +21,29 @@ namespace window
     };
 
 
-    struct a_focused {
+    struct a_focused
+    {
         bool focused;
     };
 
-    struct a_resized {
+    struct a_resized
+    {
         int w;
         int h;
     };
 
-    struct a_events {
+    struct a_events
+    {
         snuifw::util::WindowEvents events;
     };
 
-    struct a_name {
+    struct a_name
+    {
         std::string name;
     };
 
-    struct a_window {
+    struct a_window
+    {
         std::shared_ptr<snuifw::util::WindowContainer> window;
     };
 
@@ -56,15 +59,17 @@ namespace window
     inline Model update_window(Model c, action action)
     {
         return std::visit(
-            lager::visitor{
+            util::visitor{
                 [&](a_name a) { c.name = a.name; return c;},
                 [&](a_window a) { c.window = a.window; return c;},
                 [&](a_focused a) { c.focused = a.focused; return c;},
-                [&](a_resized a) { 
+                [&](a_resized a)
+                { 
                     c.width = a.w; c.height = a.h; 
                     return c;
                 },
-                [&](a_events a) {
+                [&](a_events a)
+                {
                     c.events = a.events;
                     return c;
                 } 
@@ -72,4 +77,4 @@ namespace window
             action);
     }
 
-}}
+}

@@ -63,7 +63,6 @@ cc_library(
     includes = ["src"],
     deps = [
         "@immer//:immer",
-        "@lager//:lager",
         #"@yoga//:yoga",
         "@glfw//:glfw",
         "@skia//:skia",
@@ -97,7 +96,7 @@ cc_binary(
     ],
 
     copts = select({
-        "@bazel_tools//src/conditions:windows": ["/std:c++17", "/experimental"],
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
         "//conditions:default": ["-std=c++17"],
     }),
 )

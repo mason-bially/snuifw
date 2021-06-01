@@ -143,16 +143,16 @@ void Context::_keyCallback(GLFWwindow* w,int k,int s,int a, int m)
 	{
 		if(m & GLFW_MOD_SHIFT)
 		{
-			dispatch(model::key_redo());
+			dispatch(model::key::a_redo());
 		}
 		else
 		{
-			dispatch(model::key_undo());
+			dispatch(model::key::a_undo());
 		}
 	}
 	else
 	{
-		dispatch(model::key_event{k, s, a, m});
+		dispatch(model::key::event{k, s, a, m});
 	} 
 }
 

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "interfaces.h"
-#include "layout.h"
-#include "DomRoot.h"
+#include "snuifw/dom/interfaces.h"
+#include "snuifw/dom/layout.h"
+#include "snuifw/dom/DomRoot.h"
 
-#include "fundamentals/simple.h"
-#include "fundamentals/text.h"
-#include "fundamentals/containers.h"
+#include "snuifw/dom/fundamentals/simple.h"
+#include "snuifw/dom/fundamentals/text.h"
+#include "snuifw/dom/fundamentals/containers.h"

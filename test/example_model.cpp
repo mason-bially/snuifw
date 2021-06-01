@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "lager/store.hpp"
-
 #include "snuifw/snuifw.h"
 
 using namespace snuifw;
@@ -63,17 +61,19 @@ int main(void) {
         c.swap();
     };
 
+    /*
     auto store = lager::make_store<model::action>(
         model::Model{},
         model::update,
         draw,
         lager::with_manual_event_loop{});
+    */
 
 	
     c.loop = [&]()
     {
 
-    }
+    };
     c.main();
 
 	exit(EXIT_SUCCESS);

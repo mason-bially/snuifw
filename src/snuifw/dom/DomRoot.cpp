@@ -1,4 +1,4 @@
-#include "dom.h"
+#include "snuifw/dom/dom.h"
 
 using namespace snuifw;
 

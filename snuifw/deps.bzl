@@ -24,11 +24,4 @@ def snuifw_deps():
             strip_prefix = "yoga-5cd6256843499537f1ae65eaa92c7376be22e99e",
             #sha256 = "",
         )
-
-    if "lager" not in native.existing_rules():
-        http_archive(
-            name = "lager",
-            urls = ["https://github.com/cgrinker/lager/archive/f22d909f6c9e66cde40be1908280c291dedcf960.zip"],
-            strip_prefix = "lager-f22d909f6c9e66cde40be1908280c291dedcf960",
-            sha256 = "a4ff68dd80912c1b8f4b9195e479c234853aaee376ccbecb6047406c408cae3f"
-        )
+        

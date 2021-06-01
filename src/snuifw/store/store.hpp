@@ -1,38 +1,35 @@
 #pragma once
 
-#include "lager/util.hpp"
-#include <variant>
+#include "snuifw/util/helpers.hpp"
 
-#include "window/store.hpp"
-#include "key/store.h"
+#include "snuifw/store/window/store.hpp"
+#include "snuifw/store/key/store.hpp"
 
-namespace model {
+namespace snuifw::model {
 
+    struct Model
+    {
+        window::Model window;
+        key::Model key;
+    };
 
-
-struct Model
-{
-    window::Model window;
-    KeyModel key;
-};
-
-struct zoom_action
-{
-    int direction = 0;
-};
+    struct zoom_action
+    {
+        int direction = 0;
+    };
 
 
 
-using action = std::variant<key_action, window::action>;
+    using action = std::variant<key::action, window::action>;
 
-inline Model update(Model c, action action)
-{
-    return std::visit(
-        lager::visitor{
-            [&](window::action a) { c.window = update_window(c.window, a); return c;},
-            [&](key_action a) { c.key = update_key(c.key, a); return c;}  
-        },
-        action);
-}
+    inline Model update(Model c, action action)
+    {
+        return std::visit(
+            util::visitor{
+                [&](window::action a) { c.window = update_window(c.window, a); return c;},
+                [&](key::action a) { c.key = update_key(c.key, a); return c;},
+            },
+            action);
+    }
 
-} // namespace counter
+} // namespace snuifw::model

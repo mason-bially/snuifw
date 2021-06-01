@@ -1,0 +1,1 @@
+Examples are used to provide both proofs of concepts of code and for examples of usage. The proofs of concepts are useful for diagnostics and examples of how to setup the relevant APIs in preparation for SNUIFW. The usage examples are for understanding how to use and work with SNUIFW.

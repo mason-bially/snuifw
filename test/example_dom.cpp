@@ -49,7 +49,7 @@ int main(void) {
     fancy_font.setForceAutoHinting(true);
     fancy_font.setEdging(SkFont::Edging::kSubpixelAntiAlias);
 
-    auto dom = new snuifw::DomRoot(&c);
+    auto dom = new DomRoot(&c);
     dom->setRoot(
         VFlow().flow(false).stretch(false) [
             Box().color(SkColorSetARGB(255, 255, 0, 255)).size({ 20.f, 20.f }),

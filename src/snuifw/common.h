@@ -1,7 +1,11 @@
 #pragma once
 
-#include <deque>
 #include <memory>
+#include <variant>
+#include <optional>
+#include <algorithm>
+#include <deque>
+#include <vector>
 
 #include "GLFW/glfw3.h"
 

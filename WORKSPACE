@@ -30,14 +30,6 @@ boost_deps()
 
 
 http_archive(
-    name = "h3",
-    urls = ["https://github.com/cgrinker/h3/archive/99f6ed5e058db0b50614c2c7f204c468d99a9ab3.zip"],
-    strip_prefix = "h3-99f6ed5e058db0b50614c2c7f204c468d99a9ab3",
-    sha256 = "b953b53852abc698905074db51a8e76ed53bda8b34d233b687abcaebf1163361",
-)
-
-
-http_archive(
     name = "immer",
     urls = ["https://github.com/cgrinker/immer/archive/5d45c1c24cd5388187855aa1356631ecfe5fbd70.zip"],
     strip_prefix = "immer-5d45c1c24cd5388187855aa1356631ecfe5fbd70",
