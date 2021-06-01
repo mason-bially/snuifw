@@ -18,3 +18,5 @@ A SNUIFW application is a collection of layers contained in an object called a `
   - `IStyleLayer` - A layer which provides CSS-esque styling features, primarily for translating user models into render models. This comes in a couple of different constructions, with different features available for each. This is meant for managing the styling features independent of the user model (or at least so user models may "pass them through"). Many components in our included model library rely on a specific style layer variant.
   - `IStateLayer` - A layer which manages and detects the state differences between user models and triggers updates of the user model layer through to the render layer as necessary.
   - `IModelLayer` - A layer for hosting the user models and managing their outward facing features.
+
+The context also provides a number of dispatch features which any layer can add onto and modify (including multi-methods).
