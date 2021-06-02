@@ -12,4 +12,4 @@ Here we list any system specific dependencies (while we build all libraries from
 
 Install the following dependencies with your package manager (listed here for debian):
 
-`sudo apt-get install xorg-dev`
+`sudo apt-get install xorg-dev libjpeg-dev libwebp-dev`

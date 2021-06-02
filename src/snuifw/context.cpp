@@ -58,7 +58,7 @@ void Context::dispatch(model::action a)
 void Context::_initGlfw()
 {
     if (!glfwInit()) {
-		throw std::exception("GLFW Problem Bro");
+		throw std::runtime_error("GLFW Problem Bro");
 	}
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
