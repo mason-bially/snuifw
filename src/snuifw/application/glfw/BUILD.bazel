@@ -1,0 +1,18 @@
+
+cc_library(
+    name = "glfw",
+    visibility = ["//visibility:public"],
+    
+    hdrs = glob(["src/snuifw/application/glfw/*.h*"]),
+    srcs = glob(["src/snuifw/application/glfw/*.c*"]),
+    deps = [
+        "//src/snuifw:core",
+
+        "@glfw",
+    ],
+
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
+)

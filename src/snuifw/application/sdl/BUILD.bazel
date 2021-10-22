@@ -1,0 +1,18 @@
+
+cc_library(
+    name = "sdl",
+    visibility = ["//visibility:public"],
+    
+    hdrs = glob(["src/snuifw/application/sdl/*.h*"]),
+    srcs = glob(["src/snuifw/application/sdl/*.c*"]),
+    deps = [
+        "//src/snuifw:core",
+        
+        "@sdl",
+    ],
+
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
+)

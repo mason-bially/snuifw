@@ -1,0 +1,46 @@
+
+cc_library(
+    name = "includes",
+    visibility = ["//visibility:public"],
+    
+    hdrs = glob(["src/snuifw/application/*.h*"]),
+    deps = [
+        "//src/snuifw:base-includes",
+    ],
+
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
+)
+
+cc_library(
+    name = "core",
+    visibility = ["//visibility:public"],
+    
+    srcs = glob(["src/snuifw/application/*.c*"]),
+    deps = [
+        ":includes",
+    ],
+
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
+)
+
+
+cc_library(
+    name = "full",
+    visibility = ["//visibility:public"],
+    
+    deps = [
+        ":core",
+        "//src/snuifw/application/glfw",
+    ],
+
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
+)

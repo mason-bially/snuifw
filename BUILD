@@ -31,15 +31,8 @@ cc_library(
     name = "snuifw",
     visibility = ["//visibility:public"],
     
-    hdrs = glob(["src/**/*.h*"]),
-    srcs = glob(["src/**/*.c*"]),
-    includes = ["src"],
     deps = [
-        "@immer//:immer",
-        #"@yoga//:yoga",
-        "@glfw//:glfw",
-        "@skia//:skia",
-        #"@h3//:h3"
+        "//src/snuifw:full"
     ],
 
     copts = select({

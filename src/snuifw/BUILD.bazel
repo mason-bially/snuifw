@@ -1,0 +1,70 @@
+
+cc_library(
+    name = "base-includes",
+    visibility = ["//visibility:public"],
+    
+    hdrs = glob(["src/**/*.h*"]),
+    includes = ["src"],
+
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
+)
+
+cc_library(
+    name = "core-includes",
+    visibility = ["//visibility:public"],
+    
+    deps = [
+        ":base-includes",
+        "//src/snuifw/application:includes",
+    ],
+
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
+)
+
+cc_library(
+    name = "core",
+    visibility = ["//visibility:public"],
+    
+    hdrs = glob(["src/**/*.h*"]),
+    srcs = glob(["src/**/*.c*"]),
+    includes = ["src"],
+    deps = [
+        ":core-includes",
+        "//src/snuifw/application:core",
+
+        "@immer//:immer",
+        #"@yoga//:yoga",
+        "@glfw//:glfw",
+        "@skia//:skia",
+        #"@h3//:h3"
+    ],
+
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
+)
+
+cc_library(
+    name = "full",
+    visibility = ["//visibility:public"],
+    
+    deps = [
+        ":core",
+        "//src/snuifw/application:full",
+
+        #"@yoga//:yoga",
+        #"@h3//:h3"
+    ],
+
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
+)

@@ -1,7 +1,6 @@
 workspace(name = "ninja_ob1_snuifw")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-load("@ninja_ob1_snuifw//:snuifw/deps.bzl", "snuifw_deps")
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 git_repository(
@@ -45,4 +44,18 @@ git_repository(
     shallow_since = "1622608084 -0700",
 )
 
-snuifw_deps()
+#### TODO fix up the above
+
+
+git_repository(
+    name = "ninja_ob1_bazel",
+    commit = "b215b35863421072110638db7840ecb9de3382e0",
+    remote = "https://github.com/OffByOneStudios/ob1-bazel",
+    shallow_since = "1634860673 -0700",
+)
+
+load("@ninja_ob1_bazel//:bazel/deps.bzl", "ob1_deps")
+ob1_deps()
+
+load("@ninja_ob1_bazel//:bazel/setup.bzl", "ob1_setup")
+ob1_setup()
