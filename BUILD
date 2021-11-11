@@ -4,7 +4,7 @@ cc_library(
     hdrs = ["vendor/glad_gl3/glad/glad.h", "vendor/glad_gl3/KHR/khrplatform.h"],
     srcs = ["vendor/glad_gl3/glad.c"],
     includes = [
-        "vendor/glad_gl3"
+        "vendor/glad_gl3",
     ]
 )
 cc_library(
@@ -13,7 +13,7 @@ cc_library(
     hdrs = ["vendor/glad_gl4/glad/glad.h", "vendor/glad_gl4/KHR/khrplatform.h"],
     srcs = ["vendor/glad_gl4/glad.c"],
     includes = [
-        "vendor/glad_gl4"
+        "vendor/glad_gl4",
     ]
 )
 
@@ -23,7 +23,7 @@ cc_library(
     hdrs = ["vendor/glad_gles3/glad/glad.h", "vendor/glad_gles3/KHR/khrplatform.h"],
     srcs = ["vendor/glad_gles3/glad.c"],
     includes = [
-        "vendor/glad_gles3"
+        "vendor/glad_gles3",
     ]
 )
 
@@ -32,7 +32,7 @@ cc_library(
     visibility = ["//visibility:public"],
     
     deps = [
-        "//src/snuifw:full"
+        "//src:full",
     ],
 
     copts = select({

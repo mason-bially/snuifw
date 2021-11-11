@@ -1,4 +1,17 @@
 
+cc_binary(
+    name = "app_layers",
+    srcs = glob(["example_app_layers.cpp"]),
+    deps = [
+        "//:snuifw",
+    ],
+
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
+)
+
 
 cc_binary(
     name = "dom",

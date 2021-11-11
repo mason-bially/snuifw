@@ -6,7 +6,7 @@ cc_library(
     hdrs = glob(["src/snuifw/application/glfw/*.h*"]),
     srcs = glob(["src/snuifw/application/glfw/*.c*"]),
     deps = [
-        "//src/snuifw:core",
+        "//src:core",
 
         "@glfw",
     ],

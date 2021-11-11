@@ -6,9 +6,9 @@ cc_library(
     hdrs = glob(["src/snuifw/application/sdl/*.h*"]),
     srcs = glob(["src/snuifw/application/sdl/*.c*"]),
     deps = [
-        "//src/snuifw:core",
+        "//src:core",
         
-        "@sdl",
+        "@sdl2//:SDL2_lib",
     ],
 
     copts = select({

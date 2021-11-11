@@ -3,8 +3,8 @@ cc_library(
     name = "base-includes",
     visibility = ["//visibility:public"],
     
-    hdrs = glob(["src/**/*.h*"]),
-    includes = ["src"],
+    hdrs = glob(["**/*.h*"]),
+    includes = ["."],
 
     copts = select({
         "@bazel_tools//src/conditions:windows": ["/std:c++17"],
@@ -31,9 +31,8 @@ cc_library(
     name = "core",
     visibility = ["//visibility:public"],
     
-    hdrs = glob(["src/**/*.h*"]),
-    srcs = glob(["src/**/*.c*"]),
-    includes = ["src"],
+    srcs = glob(["**/*.c*"]),
+    includes = ["."],
     deps = [
         ":core-includes",
         "//src/snuifw/application:core",

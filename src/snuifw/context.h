@@ -4,7 +4,8 @@
 
 #include "store/store.hpp"
 
-namespace snuifw {
+namespace snuifw
+{
 
     class Context 
     {
