@@ -1,5 +1,6 @@
+#pragma once
 
-#include "internal.h"
+#include "application.h"
 
 namespace snuifw
 {

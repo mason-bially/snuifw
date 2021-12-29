@@ -3,7 +3,7 @@ cc_library(
     name = "includes",
     visibility = ["//visibility:public"],
     
-    hdrs = glob(["src/snuifw/application/*.h*"]),
+    hdrs = glob(["*.h*"]),
     deps = [
         "//src:base-includes",
     ],
@@ -18,7 +18,7 @@ cc_library(
     name = "core",
     visibility = ["//visibility:public"],
     
-    srcs = glob(["src/snuifw/application/*.c*"]),
+    srcs = glob(["*.c*"]),
     deps = [
         ":includes",
     ],

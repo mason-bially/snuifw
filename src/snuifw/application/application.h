@@ -1,5 +1,8 @@
+#pragma once
 
+#include <limits>
 #include <memory>
+#include <string>
 
 namespace snuifw
 {

@@ -1,5 +1,6 @@
+#pragma once
 
-#include "internal.h"
+#include "application.h"
 
 namespace snuifw
 {
@@ -7,10 +8,6 @@ namespace snuifw
     // this layer represents the application layer and a window context to it
     class IApplicationLayer
     {
-        protected:
-            typedef std::shared_ptr<IApplicationLayer> (_FrequireAppLayer*)();
-            static std::map<std::string, _FrequireAppLayer> _s_requires;
-
         public:
             ~IApplicationLayer();
         
