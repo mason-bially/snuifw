@@ -1,11 +1,14 @@
 #include "GLFW/glfw3.h"
 
-#include "include/gpu/GrBackendSurface.h"
-#include "include/gpu/GrContext.h"
+
+#define SK_GL
+#include "include/gpu/GrTypes.h"
+#include "include/gpu/GrDirectContext.h"
 #include "include/gpu/gl/GrGLInterface.h"
 #include "include/core/SkCanvas.h"
 #include "include/core/SkColorSpace.h"
 #include "include/core/SkSurface.h"
+#include "include/core/SkData.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,7 +17,7 @@
 //#define GL_FRAMEBUFFER_SRGB 0x8DB9
 //#define GL_SRGB8_ALPHA8 0x8C43
 
-GrContext* sContext = nullptr;
+GrDirectContext* sContext = nullptr;
 SkSurface* sSurface = nullptr;
 
 void error_callback(int error, const char* description) {
@@ -29,7 +32,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void init_skia(int w, int h) {
 	GrContextOptions options;
 	//options.fRequireDecodeDisableForSRGB = false;
-	sContext = GrContext::MakeGL(nullptr, options).release();
+	sContext = GrDirectContext::MakeGL().release();
+	SkImageInfo info = SkImageInfo::MakeN32Premul(w, h);
+	SkSurfaceProps props;
 
 	GrGLFramebufferInfo framebufferInfo;
 	framebufferInfo.fFBOID = 0; // assume default framebuffer
@@ -37,20 +42,17 @@ void init_skia(int w, int h) {
 	//(replace line below with this one to enable correct color spaces) framebufferInfo.fFormat = GL_SRGB8_ALPHA8;
 	framebufferInfo.fFormat = GL_RGBA8;
 
-	SkColorType colorType;
-	if (kRGBA_8888_GrPixelConfig == kSkia8888_GrPixelConfig) {
-		colorType = kRGBA_8888_SkColorType;
-	}
-	else {
-		colorType = kBGRA_8888_SkColorType;
-	}
+	SkColorType colorType = kRGBA_8888_SkColorType;
+	
 	GrBackendRenderTarget backendRenderTarget(w, h,
 		0, // sample count
 		0, // stencil bits
 		framebufferInfo);
 
+
 	//(replace line below with this one to enable correct color spaces) sSurface = SkSurface::MakeFromBackendRenderTarget(sContext, backendRenderTarget, kBottomLeft_GrSurfaceOrigin, colorType, SkColorSpace::MakeSRGB(), nullptr).release();
 	sSurface = SkSurface::MakeFromBackendRenderTarget(sContext, backendRenderTarget, kBottomLeft_GrSurfaceOrigin, colorType, nullptr, nullptr).release();
+	
 	if (sSurface == nullptr) abort();
 }
 
@@ -98,11 +100,15 @@ int main(void) {
 	while (!glfwWindowShouldClose(window)) {
 		glfwWaitEvents();
 
+		canvas->clear(SK_ColorWHITE);
+
 		SkPaint paint;
 		paint.setColor(SK_ColorWHITE);
 		canvas->drawPaint(paint);
 		paint.setColor(SK_ColorBLUE);
 		canvas->drawRect({(float)(0 + i % kHeight), 200, (float)(200 + i % kHeight), 500}, paint);
+
+		sSurface->flush();
 		sContext->flush();
 
 		i += 3;

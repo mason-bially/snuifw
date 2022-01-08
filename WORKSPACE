@@ -49,7 +49,7 @@ git_repository(
 
 git_repository(
     name = "ninja_ob1_bazel",
-    commit = "b215b35863421072110638db7840ecb9de3382e0",
+    commit = "4db5aecba19e8ee72c08074e518457e19ba0a602",
     remote = "https://github.com/OffByOneStudios/ob1-bazel",
     shallow_since = "1634860673 -0700",
 )
