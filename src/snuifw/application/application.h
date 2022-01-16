@@ -6,9 +6,9 @@
 
 namespace snuifw
 {
-    class IApplicationLayer;
     class IApplicationWindow;
+    class IApplicationLayer;
 }
 
-#include "IApplicationLayer.h"
 #include "IApplicationWindow.h"
+#include "IApplicationLayer.h"

@@ -37,9 +37,7 @@ void Context::main()
 	_inMain = true;
 	while (isRunning())
 	{
-		glfwWaitEvents();
-
-		loop();
+		update_all();
 	}
 	_inMain = false;
 }
@@ -52,6 +50,13 @@ void Context::swap()
 void Context::dispatch(model::action a)
 {
 	_model = model::update(_model, a);
+}
+
+void Context::update_all()
+{
+	glfwWaitEvents();
+
+	loop();
 }
 
 
@@ -90,7 +95,7 @@ void Context::_initSkia()
 {
     GrContextOptions options;
 	//options.fRequireDecodeDisableForSRGB = false;
-	_context = GrContext::MakeGL(nullptr, options).release();
+	_context = GrDirectContext::MakeGL(nullptr, options).release();
 
 	_frameBuffer = GrGLFramebufferInfo();
 	_renderTarget = GrBackendRenderTarget();
@@ -109,22 +114,22 @@ bool Context::_rebuildSurface(int w, int h)
 	//(replace line below with this one to enable correct color spaces) framebufferInfo.fFormat = GL_SRGB8_ALPHA8;
 	_frameBuffer.fFormat = GL_RGBA8;
 
-	SkColorType colorType;
-	if (kRGBA_8888_GrPixelConfig == kSkia8888_GrPixelConfig) {
-		colorType = kRGBA_8888_SkColorType;
-	}
-	else {
-		colorType = kBGRA_8888_SkColorType;
-	}
+	SkColorType colorType = kRGBA_8888_SkColorType;
+	//if (kRGBA_8888_GrPixelConfig == kSkia8888_GrPixelConfig) {
+	//	colorType = kRGBA_8888_SkColorType;
+	//}
+	//else {
+	//	colorType = kBGRA_8888_SkColorType;
+	//}
 
-	_renderTarget =  GrBackendRenderTarget(
+	_renderTarget = GrBackendRenderTarget(
 		w, h,
 		4, // sample count
 		0, // stencil bits
 		_frameBuffer);
 
 	//(replace line below with this one to enable correct color spaces) _surface = SkSurface::MakeFromBackendRenderTarget(_context, backendRenderTarget, kBottomLeft_GrSurfaceOrigin, colorType, SkColorSpace::MakeSRGB(), nullptr).release();
-	_surface = SkSurface::MakeFromBackendRenderTarget(_context, _renderTarget, kBottomLeft_GrSurfaceOrigin, colorType, nullptr, nullptr).release();
+	_surface = _surface = SkSurface::MakeFromBackendRenderTarget(_context, _renderTarget, kBottomLeft_GrSurfaceOrigin, colorType, nullptr, nullptr).release();
 	return _surface != nullptr;
 }
 

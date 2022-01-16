@@ -4,7 +4,7 @@ cc_binary(
     name = "glfw",
     srcs = ["example_app_glfw.cpp"],
     deps = [
-        "@glfw//:glfw",
+        "@glfw",
         "//:gl3"
     ],
 
@@ -19,8 +19,8 @@ cc_binary(
     name = "glfw_skia",
     srcs = ["example_draw_skia.cpp"],
     deps = [
-        "@glfw//:glfw",
-        "@skia//:skia",
+        "@glfw",
+        "@skia",
     ],
 
     copts = select({

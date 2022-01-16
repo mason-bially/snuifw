@@ -51,7 +51,7 @@ git_repository(
     name = "ninja_ob1_bazel",
     commit = "4db5aecba19e8ee72c08074e518457e19ba0a602",
     remote = "https://github.com/OffByOneStudios/ob1-bazel",
-    shallow_since = "1634860673 -0700",
+    shallow_since = "1641599917 -0800"
 )
 
 load("@ninja_ob1_bazel//:bazel/deps.bzl", "ob1_deps")

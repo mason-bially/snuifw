@@ -8,16 +8,15 @@
 
                 "${workspaceFolder}/bazel-snuifw/external/org_cultlang_stdext/src",
                 "${workspaceFolder}/vendor/glad_gl3",
-                "${workspaceFolder}/bazel-genfiles/external/lager",
                 "${workspaceFolder}/bazel-snuifw/external/lager",
                 "${workspaceFolder}/bazel-snuifw/external/immer",
                 "${workspaceFolder}/bazel-snuifw/external/fmt/include",
                 "${workspaceFolder}/bazel-snuifw/external/spdlog/include",
-                "${workspaceFolder}/bazel-genfiles/external/h3/src/h3lib/include",
                 "${workspaceFolder}/bazel-snuifw/external/h3/src/h3lib/include",
                 "${workspaceFolder}/bazel-snuifw/external/glfw/include",
                 "${workspaceFolder}/bazel-snuifw/external/yoga/yoga",
-                "${workspaceFolder}/bazel-snuifw/external/skia"
+                "${workspaceFolder}/bazel-snuifw/external/flecs/include",
+                "${workspaceFolder}/bazel-snuifw/external/skia",
             ],
             "defines": [
                 "_DEBUG",

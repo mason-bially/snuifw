@@ -13,7 +13,7 @@ namespace snuifw
         //TODO template this
         model::Model _model;
 
-        GrContext* _context = nullptr;
+        GrDirectContext* _context = nullptr;
         GrGLFramebufferInfo _frameBuffer;
         GrBackendRenderTarget _renderTarget;
         SkSurface* _surface = nullptr;
@@ -34,6 +34,8 @@ namespace snuifw
         void main(); // takes control until canceled
 
         std::function<void ()> loop; // not rate limited
+
+        void update_all();
 
     public:
         void swap(); // is vsync right now
