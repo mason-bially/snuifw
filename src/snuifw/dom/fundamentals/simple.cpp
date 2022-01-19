@@ -4,8 +4,8 @@ using namespace snuifw;
 
 void Box::_dirtyLayout()
 {
-    _layout.minHeight = _layout.prefHeight = _size.height();
-    _layout.minWidth = _layout.prefWidth = _size.width();
+    _layout.minHeight = _layout.prefHeight = _size.getYf();
+    _layout.minWidth = _layout.prefWidth = _size.getXf();
 }
 
 void Box::draw(SkCanvas* canvas)

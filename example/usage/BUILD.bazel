@@ -25,3 +25,16 @@ cc_binary(
         "//conditions:default": ["-std=c++17"],
     }),
 )
+
+cc_binary(
+    name = "component",
+    srcs = glob(["example_component.cpp"]),
+    deps = [
+        "//:snuifw",
+    ],
+
+    copts = select({
+        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
+        "//conditions:default": ["-std=c++17"],
+    }),
+)

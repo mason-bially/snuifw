@@ -1,5 +1,6 @@
 #pragma once
 #include "snuifw/common.h"
+#include "snuifw/literal/literal.h"
 #include "snuifw/dom/dom.h"
 
 namespace snuifw {
@@ -9,7 +10,7 @@ namespace snuifw {
         LayoutDescription _layout;
 
         SkColor _color;
-        SkSize _size;
+        StyleSize2d _size;
         
         void _dirtyLayout();
 
@@ -21,7 +22,7 @@ namespace snuifw {
 
     public:
         inline Box& color(SkColor const& color) {  _color = color;  return *this; }
-        inline Box& size(SkSize const& size) {  _size = size; _dirtyLayout(); return *this; }
+        inline Box& size(StyleSize2d const& size) {  _size = size; _dirtyLayout(); return *this; }
 
     protected:
         inline virtual LayoutDescription const& layoutDescription() const override { return _layout; }

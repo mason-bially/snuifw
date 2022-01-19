@@ -45,8 +45,8 @@ namespace snuifw {
         inline virtual bool isFundamental() override { return false; }
 
     public:
-        virtual bool propsChanged() = 0;
-        virtual std::unique_ptr<IElement> render() = 0;
+        virtual bool propsChanged() const = 0;
+        virtual std::shared_ptr<IElement> render() = 0;
     };
 
 
