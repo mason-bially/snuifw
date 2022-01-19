@@ -10,5 +10,5 @@ void Box::_dirtyLayout()
 
 void Box::draw(SkCanvas* canvas)
 {
-    canvas->drawColor(_color);
+    canvas->drawColor(_color.asUint(StyleColor4b::Flags::BGRA));
 }

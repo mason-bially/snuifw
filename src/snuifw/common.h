@@ -8,6 +8,8 @@
 #include <deque>
 #include <vector>
 
+#include <cassert>
+
 #include "GLFW/glfw3.h"
 
 #define SK_GL

@@ -11,11 +11,6 @@ char ipsum[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
 class MyBox
     : public IComponent
 {
-    SkColor _color;
-    SkSize _size;
-    
-    void _dirtyLayout();
-
 public:
     inline MyBox() = default;
     inline virtual ~MyBox() = default;
@@ -30,8 +25,8 @@ protected:
     virtual std::shared_ptr<IElement> render() override
     {
         return VFlow().stretch(false) [
-            Box().color(SkColorSetARGB(255, 255, 0, 0)).size(px(100.f, 100.f)),
-            Box().color(SkColorSetARGB(255, 255, 64, 0)).size(px(100.f, 100.f))
+            Box().color(rgb(255, 0, 0)).size(px(100.f, 100.f)),
+            Box().color(rgb(255, 64, 0)).size(px(100.f, 100.f))
         ];
     }
 };
@@ -54,7 +49,7 @@ int main(void) {
     auto dom = new DomRoot(&c);
     dom->setRoot(
         VFlow().flow(false).stretch(false) [
-            Box().color(SkColorSetARGB(255, 255, 0, 255)).size(px(20.f, 20.f)),
+            Box().color(rgb(255, 0, 255)).size(px(20.f, 20.f)),
             Text().value(std::to_string(__cplusplus)).font(default_font),
             Text().value(ipsum).font(default_font),
             Text().value(ipsum).font(fancy_font),

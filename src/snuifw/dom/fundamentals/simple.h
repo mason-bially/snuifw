@@ -9,7 +9,7 @@ namespace snuifw {
     {
         LayoutDescription _layout;
 
-        SkColor _color;
+        StyleColor4b _color;
         StyleSize2d _size;
         
         void _dirtyLayout();
@@ -21,7 +21,7 @@ namespace snuifw {
         operator std::shared_ptr<IElement>() const { return std::static_pointer_cast<IElement>(std::make_shared<Box>(*this)); }
 
     public:
-        inline Box& color(SkColor const& color) {  _color = color;  return *this; }
+        inline Box& color(StyleColor4b const& color) {  _color = color;  return *this; }
         inline Box& size(StyleSize2d const& size) {  _size = size; _dirtyLayout(); return *this; }
 
     protected:

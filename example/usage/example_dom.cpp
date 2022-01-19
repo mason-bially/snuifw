@@ -26,23 +26,23 @@ int main(void) {
     auto dom = new DomRoot(&c);
     dom->setRoot(
         VFlow().flow(false).stretch(false) [
-            Box().color(SkColorSetARGB(255, 255, 0, 255)).size(px(20.f, 20.f)),
+            Box().color(rgb(255, 0, 255)).size(px(20.f, 20.f)),
             Text().value(std::to_string(__cplusplus)).font(default_font),
             Text().value(ipsum).font(default_font),
             Text().value(ipsum).font(fancy_font),
             Text().value(ipsum).font(sans_font).spacing_add(-2.f),
             Text().value(ipsum).font(mono_font).spacing_mul(1.2),
             VFlow().stretch(false) [
-                Box().color(SkColorSetARGB(255, 255, 0, 0)).size(px(100, 100)),
-                Box().color(SkColorSetARGB(255, 255, 64, 0)).size(px(100, 100)),
-                Box().color(SkColorSetARGB(255, 255, 128, 0)).size(px(100, 200)),
-                Box().color(SkColorSetARGB(255, 255, 64, 0)).size(px(100, 100)),
-                Box().color(SkColorSetARGB(255, 255, 0, 0)).size(px(100, 100)),
-                Box().color(SkColorSetARGB(255, 255, 0, 0)).size(px(100, 100)),
-                Box().color(SkColorSetARGB(255, 255, 64, 0)).size(px(100, 100)),
-                Box().color(SkColorSetARGB(255, 255, 128, 0)).size(px(100.f, 200.f)),
-                Box().color(SkColorSetARGB(255, 255, 64, 0)).size(px(100.f, 100)),
-                Box().color(SkColorSetARGB(255, 255, 0, 0)).size(px(100, 100.f))
+                Box().color(rgb(255, 0, 0)).size(px(100, 100)),
+                Box().color(rgb(255, 64, 0)).size(px(100, 100)),
+                Box().color(rgb(255, 128, 0)).size(px(100, 200)),
+                Box().color(rgb(255, 64, 0)).size(px(100, 100)),
+                Box().color(rgb(255, 0, 0)).size(px(100, 100)),
+                Box().color(rgb(255, 0, 0)).size(px(100, 100)),
+                Box().color(rgb(255, 64, 0)).size(px(100, 100)),
+                Box().color(rgb(255, 128, 0)).size(px(100.f, 200.f)),
+                Box().color(rgb(255, 64, 0)).size(px(100.f, 100)),
+                Box().color(rgb(255, 0, 0)).size(px(100, 100.f))
             ]
         ]);
 

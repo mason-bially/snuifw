@@ -70,37 +70,29 @@ namespace snuifw::literal
         }
 
     public:
-        StyleSize2d()
+        inline StyleSize2d()
             : _flags(0), _x(), _y()
         { }
 
-        StyleSize2d(Flags xf, int32_t xv, Flags yf, int32_t yv)
-            : _flags(_packFlags(_setType(xf, Flags::TypeInt), _setType(yf, Flags::TypeInt))), _x(), _y()
-        {
-            _x.i = xv;
-            _y.i = yv;
-        }
+        inline StyleSize2d(Flags xf, int32_t xv, Flags yf, int32_t yv)
+            : _flags(_packFlags(_setType(xf, Flags::TypeInt), _setType(yf, Flags::TypeInt)))
+            , _x { .i = xv }, _y { .i = yv }
+        { }
 
-        StyleSize2d(Flags xf, float xv, Flags yf, float yv)
-            : _flags(_packFlags(_setType(xf, Flags::TypeFloat), _setType(yf, Flags::TypeFloat))), _x(), _y()
-        {
-            _x.f = xv;
-            _y.f = yv;
-        }
+        inline StyleSize2d(Flags xf, float xv, Flags yf, float yv)
+            : _flags(_packFlags(_setType(xf, Flags::TypeFloat), _setType(yf, Flags::TypeFloat)))
+            , _x { .f = xv }, _y { .f = yv }
+        { }
 
-        StyleSize2d(Flags xf, int32_t xv, Flags yf, float yv)
-            : _flags(_packFlags(_setType(xf, Flags::TypeInt), _setType(yf, Flags::TypeFloat))), _x(), _y()
-        {
-            _x.i = xv;
-            _y.f = yv;
-        }
+        inline StyleSize2d(Flags xf, int32_t xv, Flags yf, float yv)
+            : _flags(_packFlags(_setType(xf, Flags::TypeInt), _setType(yf, Flags::TypeFloat)))
+            , _x { .i = xv }, _y { .f = yv }
+        { }
 
-        StyleSize2d(Flags xf, float xv, Flags yf, int32_t yv)
-            : _flags(_packFlags(_setType(xf, Flags::TypeFloat), _setType(yf, Flags::TypeInt))), _x(), _y()
-        {
-            _x.f = xv;
-            _y.i = yv;
-        }
+        inline StyleSize2d(Flags xf, float xv, Flags yf, int32_t yv)
+            : _flags(_packFlags(_setType(xf, Flags::TypeFloat), _setType(yf, Flags::TypeInt)))
+            , _x { .f = xv }, _y { .i = yv }
+        { }
 
     public:
         inline Flags getXFlags() const

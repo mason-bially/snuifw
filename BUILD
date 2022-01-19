@@ -36,7 +36,7 @@ cc_library(
     ],
 
     copts = select({
-        "@bazel_tools//src/conditions:windows": ["/std:c++17"],
-        "//conditions:default": ["-std=c++17"],
+        "@bazel_tools//src/conditions:windows": ["/std:c++20"],
+        "//conditions:default": ["-std=c++20"],
     }),
 )
