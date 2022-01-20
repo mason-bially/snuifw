@@ -31,6 +31,11 @@ protected:
     }
 };
 
+struct TestModel
+{
+    int a;
+};
+
 int main(void) {
     TopContext top;
     top.init();
@@ -58,6 +63,24 @@ int main(void) {
             MyBox()
         ]);
     c->init();
+
+
+
+    TestModel const* tm = c->model().getModel<TestModel>();
+    assert(tm == nullptr);
+    c->model().mutModel<TestModel>([](auto tm) {
+        tm->a = 15;
+    });
+    tm = c->model().getModel<TestModel>();
+    assert(tm != nullptr);
+    assert(tm->a == 15);
+    c->model().mutModel<TestModel>([](auto tm) {
+        tm->a += 18;
+    });
+    tm = c->model().getModel<TestModel>();
+    assert(tm != nullptr);
+    assert(tm->a == (15 + 18));
+
 
     top.main();
 

@@ -9,8 +9,8 @@ char ipsum[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
  " cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
 int main(void) {
-    Context c;
-    c.init();
+    TopContext top;
+    top.init();
 
     // TODO, make a manager
     auto default_font = SkFont(SkTypeface::MakeDefault(), 20);
@@ -23,8 +23,8 @@ int main(void) {
     fancy_font.setForceAutoHinting(true);
     fancy_font.setEdging(SkFont::Edging::kSubpixelAntiAlias);
 
-    auto dom = new DomRoot(&c);
-    dom->setRoot(
+    auto c = new Context(&top);
+    c->setDom(
         VFlow().flow(false).stretch(false) [
             Box().color(rgb(255, 0, 255)).size(px(20.f, 20.f)),
             Text().value(std::to_string(__cplusplus)).font(default_font),
@@ -45,15 +45,9 @@ int main(void) {
                 Box().color(rgb(255, 0, 0)).size(px(100, 100.f))
             ]
         ]);
-
-	c.loop = [&]()
-    {
-		dom->render();
-
-        c.swap();
-    };
-
-    c.main();
+    c->init();
+    
+    top.main();
 
 	exit(EXIT_SUCCESS);
 }

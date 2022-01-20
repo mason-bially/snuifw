@@ -2,8 +2,8 @@
 
 int main(int argc, char **argv)
 {
-    std::unique_ptr<snuifw::IApplicationLayer> app_layer;
-    std::unique_ptr<snuifw::IDrawLayer> draw_layer;
+    std::unique_ptr<snuifw::IApplicationContext> app_layer;
+    std::unique_ptr<snuifw::IDrawContext> draw_layer;
 
     if (argc >= 1)
     {
@@ -35,16 +35,12 @@ int main(int argc, char **argv)
         draw_layer = snuifw::skia::makeDrawLayer();
 
 
-    snuifw::Context context {
-        app_layer,
-        draw_layer
-    };
+    snuifw::TopContext top;
+    top.setAppLayer(app_layer);
+    top.setDrawLayer(draw_layer);
+    top.init();
 
-    //context.window()->setDom();
-    
-    snuifw::util::SimpleMainLoop main_loop(context);
-
-    main_loop.run();
+    top.main();
 
     return EXIT_SUCCESS;
 }

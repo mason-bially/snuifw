@@ -1,4 +1,5 @@
 #include "snuifw/dom/dom.h"
+#include "snuifw/snuifw.h"
 
 using namespace snuifw;
 
@@ -10,12 +11,12 @@ DomRoot::DomRoot(Context* context)
 
 std::shared_ptr<IElement> DomRoot::getRoot()
 {
-    return _root;
+    return _rootElement;
 }
 
 void DomRoot::setRoot(std::shared_ptr<IElement> i)
 {
-    _root = i;
+    _rootElement = i;
 }
 
 void DomRoot::_shadowRender(ShadowDom& shadow, std::shared_ptr<IElement> const& elem)
@@ -135,8 +136,7 @@ void DomRoot::_shadowDraw(SkCanvas* canvas, ShadowDom const& d)
 void DomRoot::render()
 {
     _shadow = {};
-    _shadowRender(_shadow, _root);
-
+    _shadowRender(_shadow, _rootElement);
 
     SkCanvas* canvas = _context->getSurface()->getCanvas();
     canvas->drawColor(SkColorSetARGB(255, 127, 127, 127));

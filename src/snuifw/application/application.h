@@ -6,7 +6,7 @@
 
 namespace snuifw
 {
-    class IApplicationWindow;
+    class IApplicationContext;
     class IApplicationLayer;
 }
 

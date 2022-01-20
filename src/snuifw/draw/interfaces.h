@@ -4,15 +4,24 @@
 
 namespace snuifw
 {
-    class IDrawLayer
+    class IDrawContext
     {
         public:
-            ~IDrawLayer();
+            inline ~IDrawContext() = default;
         
         public:
             // allowed to be called multiple times
             virtual void init() = 0;
 
             virtual std::string implementationName() = 0;
+    };
+
+    class IDrawWindow
+    {
+        public:
+            inline ~IDrawWindow() = default;
+        
+        public:
+            virtual IDrawContext* drawContext() = 0;
     };
 }

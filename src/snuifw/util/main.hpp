@@ -6,11 +6,11 @@ namespace snuifw::util
 {
     struct SimpleMainLoop
     {
-        Context& context;
+        TopContext& context;
 
         bool running;
 
-        inline SimpleMainLoop(Context& context)
+        inline SimpleMainLoop(TopContext& context)
             : context(context)
             , running(false)
         {

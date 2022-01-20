@@ -6,10 +6,10 @@ namespace snuifw
 {
     // application layers should use static space for their application
     // this layer represents the application layer and a window context to it
-    class IApplicationLayer
+    class IApplicationContext
     {
         public:
-            ~IApplicationLayer();
+            ~IApplicationContext();
         
         public:
             // allowed to be called multiple times

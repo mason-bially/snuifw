@@ -1,7 +1,6 @@
 #pragma once
 #include "snuifw/common.h"
-
-#include "snuifw/context.h"
+#include "snuifw/dom/dom.h"
 
 namespace snuifw {
 
@@ -30,8 +29,8 @@ namespace snuifw {
         };
 
     private:
-        Context* _context;
-        std::shared_ptr<IElement> _root;
+        class Context* _context;
+        std::shared_ptr<IElement> _rootElement;
 
         ShadowDom _shadow;
 
