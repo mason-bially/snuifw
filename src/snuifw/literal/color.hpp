@@ -157,4 +157,13 @@ namespace snuifw::literal
     };
 
     inline StyleColor4b rgb(uint8_t r, uint8_t g, uint8_t b, uint8_t a = 0xFF) { return StyleColor4b(StyleColor4b::Flags::RGBA, r, g, b, a); }
+
+    inline StyleColor4b hex(uint32_t rgb)
+    {
+        uint8_t r,g,b,a = 255;
+        r = ((rgb >> 16) & 0xFF);// / 255;
+        g = ((rgb >> 8) & 0xFF);// / 255;
+        b = ((rgb) & 0xFF);// / 255.0;
+        return StyleColor4b(StyleColor4b::Flags::RGBA, r, g, b, a); 
+    }
 }

@@ -1,9 +1,9 @@
 #include "IApplicationLayer.h"
-#include "IApplicationWindow.h"
+#include "IApplicationContext.h"
 
 using namespace snuifw;
 
-IApplicationLayer::~IApplicationLayer()
+IApplicationContext::~IApplicationContext()
 {
 
 }

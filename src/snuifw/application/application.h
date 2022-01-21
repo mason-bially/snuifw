@@ -10,5 +10,5 @@ namespace snuifw
     class IApplicationLayer;
 }
 
-#include "IApplicationWindow.h"
+#include "IApplicationContext.h"
 #include "IApplicationLayer.h"

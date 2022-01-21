@@ -154,4 +154,6 @@ namespace snuifw::literal
     inline StyleSize2d px(float x, float y) { return StyleSize2d(StyleSize2d::Flags::Pixel, x, StyleSize2d::Flags::Pixel, y); }
     inline StyleSize2d px(int x, float y) { return StyleSize2d(StyleSize2d::Flags::Pixel, x, StyleSize2d::Flags::Pixel, y); }
     inline StyleSize2d px(float x, int y) { return StyleSize2d(StyleSize2d::Flags::Pixel, x, StyleSize2d::Flags::Pixel, y); }
+
+    inline StyleSize2d ps(float x, float y) { return StyleSize2d(StyleSize2d::Flags::Percent, x, StyleSize2d::Flags::Percent, y); }
 }
