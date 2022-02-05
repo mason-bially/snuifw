@@ -10,6 +10,10 @@ namespace snuifw {
     class IElement 
     {
     public:
+        static util::DeclareType<IElement> s_type;
+        static constexpr char const c_cppTypeName[] = "snuifw::IElement";
+
+    public:
         inline virtual ~IElement() = default;
 
     public:
@@ -18,9 +22,14 @@ namespace snuifw {
         inline virtual std::vector<std::shared_ptr<IElement>> const* children() { return nullptr; }
     };
 
+
     class IFundamental
         : public IElement
     {
+    public:
+        static util::DeclareType<IFundamental> s_type;
+        static constexpr char const c_cppTypeName[] = "snuifw::IFundamental";
+
     public:
         inline virtual ~IFundamental() = default;
 
@@ -35,9 +44,14 @@ namespace snuifw {
         virtual void draw(SkCanvas* canvas) = 0;
     };
 
+
     class IComponent
         : public IElement
     {
+    public:
+        static util::DeclareType<IComponent> s_type;
+        static constexpr char const c_cppTypeName[] = "snuifw::IComponent";
+
     public:
         inline virtual ~IComponent() = default;
 

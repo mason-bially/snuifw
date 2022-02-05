@@ -1,4 +1,4 @@
-#include "containers.h"
+#include "flow.h"
 
 using namespace snuifw;
 
@@ -11,7 +11,7 @@ _details::Flow<IsVertical>::Flow()
 template<bool IsVertical>
 void _details::Flow<IsVertical>::draw(SkCanvas* canvas)
 {
-    canvas->drawColor(SkColorSetARGB(255, 255, 255, 255));
+    
 }
 
 template class _details::Flow<true>;

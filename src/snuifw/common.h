@@ -23,3 +23,5 @@
 #include "include/core/SkRect.h"
 #include "include/core/SkFont.h"
 #include "include/core/SkFontMetrics.h"
+
+#include "snuifw/util/type.hpp"
