@@ -5,8 +5,15 @@
 
 namespace snuifw {
     class Box
-        : public IFundamental
+        : public IElement
+        , public IDrawableElement
+        , public ILayoutElement
     {
+    public:
+        static util::DeclareType<ILayoutElement> s_type;
+        static constexpr char const c_cppTypeName[] = "snuifw::Box";
+
+    private:
         LayoutDescription _layout;
 
         StyleColor4b _color;
@@ -17,6 +24,9 @@ namespace snuifw {
     public:
         inline Box() = default;
         inline virtual ~Box() = default;
+        inline virtual util::Type type() const { return type::id<Box>(); }
+        inline virtual ILayoutElement* layoutElement() { return this; }
+        inline virtual IDrawableElement* drawableElement() { return this; }
 
         operator std::shared_ptr<IElement>() const { return std::static_pointer_cast<IElement>(std::make_shared<Box>(*this)); }
 
@@ -25,8 +35,8 @@ namespace snuifw {
         inline Box& size(StyleSize2d const& size) {  _size = size; _dirtyLayout(); return *this; }
 
     protected:
-        inline virtual LayoutDescription const& layoutDescription() const override { return _layout; }
+        virtual void layout(LayoutContext& ctx, LayoutResult& layout) const override;
 
-        virtual void draw(SkCanvas* canvas) override;
+        virtual void draw(DrawContext& ctx, LayoutResult const& layout) const override;
     };
 }

@@ -37,7 +37,7 @@ namespace snuifw {
 
     class ILayoutEngine
     {
-        public:
+    public:
         // Given the child and the proposed bounds, attempts to get a response
         // The rect should place a 0 where unbounded behaviour can go
         // Otherwise treated as a max size
@@ -65,13 +65,13 @@ namespace snuifw {
     class ILayoutCalculator
     {
     public:
-        virtual SkRect layout(ILayoutEngine* engine, IFundamental* root, SkRect* agreedBounds, size_t children) const = 0;
+        virtual SkRect layout(ILayoutEngine* engine, IElement* root, SkRect* agreedBounds, size_t children) const = 0;
     };
 
     // Code written as if IsVertical is true
     template<bool IsVertical = true>
     class FlowLayouter
-        : public ILayoutCalculator
+        : public ILayoutProviderElement
     {
         protected:
 
@@ -87,7 +87,7 @@ namespace snuifw {
             }
         }
 
-        inline virtual SkRect layout(ILayoutEngine* engine, IFundamental* root, SkRect* agreedBounds_, size_t children) const override
+        inline virtual SkRect layout(ILayoutEngine* engine, IElement* root, SkRect* agreedBounds_, size_t children) const override
         {
             SkRect agreedBounds = *agreedBounds_;
             maybeSwap(agreedBounds);

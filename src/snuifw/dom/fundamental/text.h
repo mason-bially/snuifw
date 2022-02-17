@@ -6,7 +6,9 @@ namespace snuifw {
     /* This is a flowing piece of text, it is simple, and nothing more.
      */
     class Text
-        : public IFundamental
+        : public IElement
+        , public IDrawableElement
+        , public ILayoutElement
     {
         mutable LayoutDescription _layout;
 
@@ -38,6 +40,9 @@ namespace snuifw {
     public:
         inline Text() = default;
         inline virtual ~Text() = default;
+        inline virtual util::Type type() const { return type::id<Text>(); }
+        inline virtual ILayoutElement* layoutElement() { return this; }
+        inline virtual IDrawableElement* drawableElement() { return this; }
 
         operator std::shared_ptr<IElement>() const { return std::static_pointer_cast<IElement>(std::make_shared<Text>(*this)); }
 
@@ -48,9 +53,8 @@ namespace snuifw {
         inline Text& spacing_mul(float space = 1.f) {  _spaceMul = space; _dirtyLayout = true; return *this; }
 
     protected:
-        inline virtual LayoutDescription const& layoutDescription() const override { _recomputeLayout(); return _layout; }
-        virtual void layoutBounds(SkRect* bounds, bool preferWidth) const override;
+        virtual void layout(LayoutContext& ctx, LayoutResult& layout) const override;
 
-        virtual void draw(SkCanvas* canvas) override;
+        virtual void draw(DrawContext& ctx, LayoutResult const& layout) const override;
     };
 }

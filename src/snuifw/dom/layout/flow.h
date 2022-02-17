@@ -7,7 +7,8 @@ namespace snuifw {
     {
         template <bool IsVertical>
         class Flow
-            : public IFundamental
+            : public IElement
+            , public IDrawableElement
             , private FlowLayouter<IsVertical>
         {
         private:
@@ -18,6 +19,9 @@ namespace snuifw {
         public:
             Flow();
             inline virtual ~Flow() = default;
+            inline virtual util::Type type() const { return type::id<Flow>(); }
+            inline virtual ILayoutProviderElement* layoutProviderElement() { return this; }
+            inline virtual IDrawableElement* drawableElement() { return this; }
 
             operator std::shared_ptr<IElement>() const { return std::static_pointer_cast<IElement>(std::make_shared<Flow>(*this)); }
 
@@ -29,12 +33,10 @@ namespace snuifw {
             inline Flow& stretch(bool stretch = true) { this->_stretchMode = stretch; return *this; }
 
         protected:
-            inline virtual std::vector<std::shared_ptr<IElement>> const* children() override { return &_children; }
+            inline virtual std::vector<std::shared_ptr<IElement>> const* children() const override { return &_children; }
 
         protected:
-            inline virtual LayoutDescription const& layoutDescription() const override { return _layout; }
-            inline virtual ILayoutCalculator* layoutCalculator() const override { return (FlowLayouter<true>*)this; }
-            virtual void draw(SkCanvas* canvas) override;
+            virtual void draw(DrawContext& ctx, LayoutResult const& layout) const override;
         };
     }
 

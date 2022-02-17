@@ -114,27 +114,38 @@ void Text::_reflowText(SkRect const& bounds) const
     }
 }
 
-void Text::layoutBounds(SkRect* bounds, bool preferWidth = true) const
+void Text::draw(DrawContext& ctx, LayoutResult const& layout) const
+{
+    if (ctx.is<SkCanvas>())
+    {
+        auto canvas = ctx.as<SkCanvas>();
+
+        SkPaint paint;
+        paint.setAntiAlias(true);
+
+        SkFont const& font = _font == nullptr ? SkFont() : *_font;
+
+        auto y = -_fontRenderHeight;
+        if (_lines.size() == 0)
+            canvas->drawSimpleText(_value.data(), _value.size(), SkTextEncoding::kUTF8, 0, y, font, paint);
+        else
+            for (auto line : _lines)
+            {
+                canvas->drawSimpleText(line.value.data(), line.value.size(), SkTextEncoding::kUTF8, 0, y, font, paint);
+                y += _scaledSpacing;
+            }
+        return;
+    }
+
+    throw std::runtime_error("not implemented draw context type"); // TODO snuifw::error::not_implemented_context_type
+}
+
+void Text::layout(LayoutContext& ctx, LayoutResult& layout) const
 {
     _recomputeLayout(bounds);
 
     bounds->fBottom = std::min(bounds->fBottom, bounds->fTop + _calcLinesHeight());
-}
 
-void Text::draw(SkCanvas* canvas)
-{
-    SkPaint paint;
-    paint.setAntiAlias(true);
-
-    SkFont const& font = _font == nullptr ? SkFont() : *_font;
-
-    auto y = -_fontRenderHeight;
-    if (_lines.size() == 0)
-        canvas->drawSimpleText(_value.data(), _value.size(), SkTextEncoding::kUTF8, 0, y, font, paint);
-    else
-        for (auto line : _lines)
-        {
-            canvas->drawSimpleText(line.value.data(), line.value.size(), SkTextEncoding::kUTF8, 0, y, font, paint);
-            y += _scaledSpacing;
-        }
+    layout.result = &_layout;
+    layout.type = type::id<LayoutDescription>();
 }

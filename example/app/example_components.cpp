@@ -64,12 +64,6 @@ int main(void)
     );
     c->init();
 
-    std::cout << snuifw::type::name<IFundamental>() << std::endl;
-    std::cout << snuifw::type::name<util::Type>() << std::endl;
-    std::cout << snuifw::type::name<TestModel>() << std::endl;
-    std::cout << snuifw::type::id<IFundamental>().value << std::endl;
-    std::cout << snuifw::type::id<TestModel>().value << std::endl;
-
     TestModel const* tm = c->model().getModel<TestModel>();
     assert(tm == nullptr);
     c->model().mutModel<TestModel>([](auto tm) {

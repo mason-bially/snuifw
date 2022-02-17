@@ -9,23 +9,17 @@ namespace snuifw {
     private:
         struct ShadowDom
         {
-            // Take the 0'th element to get the fundamental
+            // The resolution stack for this element
             std::deque<std::shared_ptr<IElement>> shadowStack;
             
+            // The actual children of this element
             std::vector<ShadowDom> shadowChildren;
 
             // All bounds stored local to parent
-            SkRect bounds;
+            ScreenRect bounds;
 
-            inline std::shared_ptr<IElement> const& front() const
-            {
-                return shadowStack.front();
-            }
-
-            inline std::shared_ptr<IFundamental> getFundamental() const
-            {
-                return std::static_pointer_cast<IFundamental>(shadowStack.front());
-            }
+            std::shared_ptr<IDrawableElement> drawable;
+            std::shared_ptr<IInteractableElement> interactable;
         };
 
     private:

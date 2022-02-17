@@ -136,7 +136,7 @@ namespace snuifw::literal
             return _value[_indexA(_flags)];
         }
 
-        inline StyleColor4b asLayout(Flags f)
+        inline StyleColor4b asLayout(Flags f) const
         {
             uint8_t v[4];
             v[_indexR(f)] = _value[_indexR(_flags)];
@@ -147,7 +147,7 @@ namespace snuifw::literal
             return StyleColor4b(_merge(_extractLayout(f), _extractNotLayout(_flags)), v[0], v[1], v[2], v[3]);
         }
 
-        inline uint32_t asUint(Flags f)
+        inline uint32_t asUint(Flags f) const
         {
             auto layout = asLayout(f);
 

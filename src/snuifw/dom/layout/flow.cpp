@@ -9,7 +9,7 @@ _details::Flow<IsVertical>::Flow()
 }
 
 template<bool IsVertical>
-void _details::Flow<IsVertical>::draw(SkCanvas* canvas)
+void _details::Flow<IsVertical>::draw(DrawContext& ctx, LayoutResult const& layout) const
 {
     
 }
